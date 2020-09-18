@@ -1,3 +1,4 @@
+require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -10,6 +11,8 @@ import Connect from "./utils/mongoConnect";
 import corsMiddleware from "./middlewares/cors.middleware";
 import noRouteMatch from "./middlewares/noRouteMatch.middleware";
 import globalErrorHandler from "./middlewares/globalErrorHandler.middleware";
+
+import UserRouter from "./resources/user/user.router";
 
 // mongose promise
 mongoose.Promise = global.Promise;
@@ -26,11 +29,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
-app.get("/", (req, res, next) => {
-  res.status(200).json({
-    hi: "its ok now...",
-  });
-});
+app.use(`/api/${AppConfig.apiVersions["v1.0"]}/user`, UserRouter);
 
 // error handlings
 app.use(noRouteMatch);

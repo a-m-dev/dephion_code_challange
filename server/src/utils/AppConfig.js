@@ -5,6 +5,9 @@ const AppConfig = {
   apiVersions: {
     "v1.0": "v1.0",
   },
+  jwt: {
+    token_expiration_due: "30d",
+  },
   buildVersion: pkg.version,
   mongoDB_URI: "mongodb://root:examplePass@cookbook_mongo_db:27017",
   dbName: "cookbook_db",
