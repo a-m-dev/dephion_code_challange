@@ -6,6 +6,8 @@ import { json, urlencoded } from "body-parser";
 import AppConfig from "./utils/AppConfig";
 
 import corsMiddleware from "./middlewares/cors.middleware";
+import noRouteMatch from "./middlewares/noRouteMatch.middleware";
+import globalErrorHandler from "./middlewares/globalErrorHandler.middleware";
 
 // mongose promise
 mongoose.Promise = global.Promise;
@@ -26,6 +28,10 @@ app.get("/", (req, res, next) => {
     hi: "its ok now...",
   });
 });
+
+// error handlings
+app.use(noRouteMatch);
+app.use(globalErrorHandler);
 
 // start server
 (async function () {
