@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import morgan from "morgan";
 import { json, urlencoded } from "body-parser";
 
 import Connect from "./utils/mongoConnect";
@@ -24,6 +25,7 @@ app.use(corsMiddleware);
 app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
+app.use(morgan("dev"));
 
 app.get("/", (req, res, next) => {
   res.status(200).json({
