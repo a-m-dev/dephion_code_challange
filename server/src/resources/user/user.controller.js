@@ -219,11 +219,70 @@ UserController.getUserData = async (req, res, next) => {
       })
     );
   } catch (error) {
+    console.log(error);
     return res.status(500).json(
       ResponseGenerator.failure({
         code: 500,
         reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
         message: "Something went wrong!",
+        error,
+      })
+    );
+  }
+};
+
+/**
+ * Update User Data
+ */
+UserController.updateUserData = async (req, res, next) => {
+  let updatables = req.body;
+  const { user_id } = req.user;
+
+  console.log({ user_id, updatables });
+
+  try {
+    // manage password
+    let password = req.body.password;
+    if (password) {
+      const salted = Bcrypt.genSaltSync(12);
+      password = Bcrypt.hashSync(req.body.password, salted);
+      updatables = { ...updatables, password };
+    }
+
+    // manage avatar
+    let avatar = req.file && req.file.path;
+    if (avatar) {
+      updatables = { ...updatables, avatar };
+    }
+
+    const result = await UserModel.findOneAndUpdate(
+      { _id: user_id },
+      { ...updatables },
+      { new: true }
+    );
+
+    return res.status(200).json(
+      ResponseGenerator.success({
+        code: 200,
+        messasge: "User data has been updated!",
+        result: {
+          _id: result._id,
+          name: result.name,
+          email: result.email,
+          avatar: result.avatar,
+          recipes: result.recipes,
+          favorites: result.favorites,
+          followingCategories: result.followingCategories,
+        },
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(
+      ResponseGenerator.failure({
+        code: 500,
+        reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
+        message: "There is a problem with server!",
         error,
       })
     );

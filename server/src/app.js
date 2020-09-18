@@ -29,6 +29,7 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use("/media", express.static("media"));
 app.use("/s", express.static(path.resolve(__dirname, "public")));
 
 app.use(`/api/${AppConfig.apiVersions["v1.0"]}/user`, UserRouter);

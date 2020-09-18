@@ -9,3 +9,5 @@
 # steps
 
 - .env files
+
+- i could have other branches to manage stuff but i tried to take it simple

@@ -5,8 +5,10 @@ function Connect(ops = {}) {
   return mongoose.connect(
     `${AppConfig.mongoDB_URI}/${AppConfig.dbName}?authSource=admin`,
     {
-      useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
+      useNewUrlParser: true,
+      useCreateIndex: true,
       ...ops,
     }
   );
