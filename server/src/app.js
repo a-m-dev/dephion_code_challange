@@ -4,13 +4,12 @@ import cors from "cors";
 import morgan from "morgan";
 import { json, urlencoded } from "body-parser";
 
+import AppConfig from "./utils/AppConfig";
 import Connect from "./utils/mongoConnect";
 
 import corsMiddleware from "./middlewares/cors.middleware";
 import noRouteMatch from "./middlewares/noRouteMatch.middleware";
 import globalErrorHandler from "./middlewares/globalErrorHandler.middleware";
-
-import AppConfig from "./utils/AppConfig";
 
 // mongose promise
 mongoose.Promise = global.Promise;
