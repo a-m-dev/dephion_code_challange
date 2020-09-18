@@ -1,6 +1,7 @@
 require("dotenv").config();
 import express from "express";
 import mongoose from "mongoose";
+import path from "path";
 import cors from "cors";
 import morgan from "morgan";
 import { json, urlencoded } from "body-parser";
@@ -28,6 +29,7 @@ app.use(cors());
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use("/s", express.static(path.resolve(__dirname, "public")));
 
 app.use(`/api/${AppConfig.apiVersions["v1.0"]}/user`, UserRouter);
 
