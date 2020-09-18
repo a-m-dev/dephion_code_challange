@@ -22,6 +22,7 @@ UserRouter.route("/register").post(
   UserController.register
 );
 
+UserRouter.route("/getUserList").get(UserController.getUserList);
 UserRouter.route("/getUserData").get(
   authenticateToken,
   UserController.getUserData

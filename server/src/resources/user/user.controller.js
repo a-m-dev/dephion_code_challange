@@ -195,6 +195,48 @@ UserController.register = async (req, res, next) => {
 };
 
 /**
+ *
+ * Get User List
+ */
+UserController.getUserList = async (req, res, next) => {
+  try {
+    const getAllUsers = await UserModel.find().exec();
+
+    return res.status(200).json(
+      ResponseGenerator.success({
+        code: 200,
+        message: "user list is ok",
+        result: {
+          users: getAllUsers.map((user) => {
+            let resultUser = user.toJSON();
+
+            return {
+              _id: resultUser._id,
+              name: resultUser.name,
+              email: resultUser.email,
+              avatar: resultUser.avatar,
+              recipes: resultUser.recipes,
+              favorites: resultUser.favorites,
+              followingCategories: resultUser.followingCategories,
+            };
+          }),
+        },
+      })
+    );
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(
+      ResponseGenerator.failure({
+        code: 500,
+        message: "Something is wrong with server",
+        reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
+        error,
+      })
+    );
+  }
+};
+
+/**
  * Get User Data
  */
 UserController.getUserData = async (req, res, next) => {

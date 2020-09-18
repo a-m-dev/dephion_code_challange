@@ -5,10 +5,9 @@
 # server
 server/built
 server/node_modules
+server/media
 
 
-# media
-media
 
 
 #mongo 
