@@ -19,5 +19,18 @@ services:
         max-size: "100k"
         max-file: "5"
 
+  cookbook_server:
+    build: server
+    container_name: ${COOKBOOK_BACKEND}
+    restart: always
+    volumes:
+      - ./server:/usr/src/app
+    ports:
+      - ${COOKBOOK_BACKEND_PORT}:4010
+    depends_on:
+      - cookbook_db
+    networks:
+      - cookbook-network
+
 networks:
   cookbook-network:

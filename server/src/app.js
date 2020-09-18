@@ -18,7 +18,7 @@ app.use(urlencoded({ extended: true }));
 
 app.get("/", (req, res, next) => {
   res.status(200).json({
-    hi: "its ok now",
+    hi: "its ok now...",
   });
 });
 
