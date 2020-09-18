@@ -3,11 +3,13 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { json, urlencoded } from "body-parser";
 
-import AppConfig from "./utils/AppConfig";
+import Connect from "./utils/mongoConnect";
 
 import corsMiddleware from "./middlewares/cors.middleware";
 import noRouteMatch from "./middlewares/noRouteMatch.middleware";
 import globalErrorHandler from "./middlewares/globalErrorHandler.middleware";
+
+import AppConfig from "./utils/AppConfig";
 
 // mongose promise
 mongoose.Promise = global.Promise;
@@ -36,6 +38,7 @@ app.use(globalErrorHandler);
 // start server
 (async function () {
   try {
+    await Connect();
     app.listen(AppConfig.PORT, () => {
       console.log(`
         >>> CookBook server is ready on http://localhost:${AppConfig.PORT}

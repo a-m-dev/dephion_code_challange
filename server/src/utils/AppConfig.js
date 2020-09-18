@@ -6,6 +6,8 @@ const AppConfig = {
     "v1.0": "v1.0",
   },
   buildVersion: pkg.version,
+  mongoDB_URI: "mongodb://root:examplePass@cookbook_mongo_db:27017",
+  dbName: "cookbook_db",
 };
 
 export default AppConfig;
