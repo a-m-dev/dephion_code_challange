@@ -1,0 +1,12 @@
+# env
+.env
+.env*
+
+# server
+server/built
+server/node_modules
+
+
+
+#mongo 
+__MONGO_DATA__
