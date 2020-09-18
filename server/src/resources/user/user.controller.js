@@ -64,8 +64,8 @@ UserController.login = async (req, res, next) => {
                   name: foundUser.name,
                   email: foundUser.email,
                   avatar: foundUser.avatar,
-                  favorites: foundUser.favorites,
                   recipes: foundUser.recipes,
+                  favorites: foundUser.favorites,
                   followingCategories: foundUser.followingCategories,
                 },
               },
@@ -188,6 +188,42 @@ UserController.register = async (req, res, next) => {
         code: 500,
         reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
         message: "Error during registration!",
+        error,
+      })
+    );
+  }
+};
+
+/**
+ * Get User Data
+ */
+UserController.getUserData = async (req, res, next) => {
+  const userID = req.user.user_id;
+
+  try {
+    const foundUser = await UserModel.findOne({ _id: userID }).exec();
+
+    return res.status(200).json(
+      ResponseGenerator.success({
+        code: 200,
+        message: "user data is ready",
+        result: {
+          _id: foundUser._id,
+          name: foundUser.name,
+          email: foundUser.email,
+          avatar: foundUser.avatar,
+          recipes: foundUser.recipes,
+          favorites: foundUser.favorites,
+          followingCategories: foundUser.followingCategories,
+        },
+      })
+    );
+  } catch (error) {
+    return res.status(500).json(
+      ResponseGenerator.failure({
+        code: 500,
+        reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
+        message: "Something went wrong!",
         error,
       })
     );
