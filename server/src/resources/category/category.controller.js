@@ -6,9 +6,6 @@ import { Model as UserModel } from "../user/user.model";
 import { propGeneral as userPropGeneral } from "../user/user.model";
 import ResponseGenerator from "../../utils/ResponseGenerator";
 import RequestFailureReasons from "../../constants/RequestFailureReasons";
-import AppConfig from "../../utils/AppConfig";
-import RegExManager from "../../utils/RegexManager";
-import UserRouter from "../user/user.router";
 
 const CategoryController = {};
 

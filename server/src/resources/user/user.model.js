@@ -28,4 +28,5 @@ module.exports = {
     "followingCategories",
     "recipes",
   ],
+  propMini: ["name", "email", "avatar"],
 };

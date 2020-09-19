@@ -280,8 +280,6 @@ UserController.updateUserData = async (req, res, next) => {
   let updatables = req.body;
   const { user_id } = req.user;
 
-  console.log({ user_id, updatables });
-
   try {
     // manage password
     let password = req.body.password;
