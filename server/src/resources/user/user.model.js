@@ -7,9 +7,11 @@ const userSchema = mongoose.Schema(
     email: { type: String, required: true, match: RegExManager.validateEmail },
     password: { type: String, required: true },
     avatar: { type: String, required: true },
-    favorites: [{ type: mongoose.Schema.Types.ObjectId }],
-    followingCategories: [{ type: mongoose.Schema.Types.ObjectId }],
-    recipes: [{ type: mongoose.Schema.Types.ObjectId }],
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
+    followingCategories: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+    ],
+    recipes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Recipe" }],
   },
   { timestamps: true }
 );

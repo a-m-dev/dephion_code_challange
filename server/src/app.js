@@ -14,6 +14,7 @@ import noRouteMatch from "./middlewares/noRouteMatch.middleware";
 import globalErrorHandler from "./middlewares/globalErrorHandler.middleware";
 
 import UserRouter from "./resources/user/user.router";
+import CategoryRouter from "./resources/category/category.router";
 
 // mongose promise
 mongoose.Promise = global.Promise;
@@ -33,6 +34,7 @@ app.use("/media", express.static("media"));
 app.use("/s", express.static(path.resolve(__dirname, "public")));
 
 app.use(`/api/${AppConfig.apiVersions["v1.0"]}/user`, UserRouter);
+app.use(`/api/${AppConfig.apiVersions["v1.0"]}/category`, CategoryRouter);
 
 // error handlings
 app.use(noRouteMatch);

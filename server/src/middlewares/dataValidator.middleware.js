@@ -19,6 +19,10 @@ function dataValidator(schema, parseType) {
         dataToParse = { ...req.params, ...req.body };
         break;
 
+      case ValidatorParserTypes.QUERY:
+        dataToParse = { ...req.query };
+        break;
+
       default:
         dataToParse = req.body;
         break;
@@ -26,9 +30,9 @@ function dataValidator(schema, parseType) {
 
     const { valid, error } = schema.validate(dataToParse);
 
-    // console.log(
-    //   `[ Data Validator ]: ${JSON.stringify({ valid, error }, null, 2)}`
-    // );
+    console.log(
+      `[ Data Validator ]: ${JSON.stringify({ valid, error }, null, 2)}`
+    );
 
     if (error !== undefined) {
       const errorMessage =
