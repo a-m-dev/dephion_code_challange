@@ -12,3 +12,7 @@
 - .env files
 
 - i could have other branches to manage stuff but i tried to take it simple
+
+# client
+
+i choosed create react app as a simplest and quickest way to implement the front end react boilerplate, i should notice that im really good with bundler like webpack , but for the sake of simplecity and being quick as possible on boilerplate, i rather to choose a boilerplate like CRA instead of writing it from scratch

@@ -32,5 +32,20 @@ services:
     networks:
       - cookbook-network
 
+  cookbook_client:
+    build: client
+    container_name: ${COOKBOOK_CLIENT}
+    restart: always
+    tty: true
+    volumes:
+      - ./client:/app
+    ports:
+      - ${COOKBOOK_CLIENT_PORT}:3000
+    depends_on:
+      - cookbook_db
+      - cookbook_server
+    networks:
+      - cookbook-network
+
 networks:
   cookbook-network:
