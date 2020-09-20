@@ -10,6 +10,11 @@ const recipeSchema = mongoose.Schema(
     preparationSteps: [{ type: String }],
     favorites: { type: Number, required: true, default: 0 },
     shares: { type: Number, required: true, default: 0 },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
     creator: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

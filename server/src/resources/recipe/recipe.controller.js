@@ -3,6 +3,10 @@ import {
   propGeneral as recipePropGeneral,
 } from "./recipe.model";
 import {
+  Model as CategoryModel,
+  propGeneral as categoryPropGeneral,
+} from "../category/category.model";
+import {
   Model as UserModel,
   propMini as userPropMini,
 } from "../user/user.model";
@@ -18,7 +22,10 @@ RecipeController.getRecipe = async (req, res, next) => {
   const { recipeId } = req.params;
 
   try {
-    let foundedRecipe = await RecipeModel.findOne({ _id: recipeId });
+    let foundedRecipe = await RecipeModel.findOne({ _id: recipeId })
+      .populate("creator", userPropMini)
+      .populate("category", categoryPropGeneral)
+      .exec();
 
     return res.status(200).json(
       ResponseGenerator.success({
@@ -35,6 +42,7 @@ RecipeController.getRecipe = async (req, res, next) => {
           favorites: foundedRecipe.favorites,
           shares: foundedRecipe.shares,
           creator: foundedRecipe.creator,
+          category: foundedRecipe.category,
         },
       })
     );
@@ -57,6 +65,7 @@ RecipeController.getRecipeList = async (req, res, next) => {
   try {
     const recipes = await RecipeModel.find()
       .populate("creator", userPropMini)
+      .populate("category", categoryPropGeneral)
       .exec();
 
     return res.status(200).json(
@@ -79,6 +88,7 @@ RecipeController.getRecipeList = async (req, res, next) => {
               favorites: result.favorites,
               shares: result.shares,
               creator: result.creator,
+              category: result.category,
             };
           }),
         },
@@ -97,12 +107,84 @@ RecipeController.getRecipeList = async (req, res, next) => {
 };
 
 /**
+ * Get Recipe by Category
+ */
+RecipeController.getRecipeByCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+
+  try {
+    let foundedCategory = await CategoryModel.findOne({ _id: categoryId });
+
+    foundedCategory = foundedCategory && foundedCategory.toJSON();
+
+    if (!foundedCategory) {
+      return res.status(404).json(
+        ResponseGenerator.failure({
+          code: 404,
+          reason: RequestFailureReasons.BAD_REQUEST,
+          message: "Category not found",
+        })
+      );
+    } else {
+      let foundedRecipes = await RecipeModel.find({
+        category: foundedCategory._id,
+      });
+
+      return res.status(200).json(
+        ResponseGenerator.success({
+          code: 200,
+          message: `Recipes for category: ${foundedCategory.name}`,
+          result: {
+            recipeCount: foundedRecipes.length,
+            recipes: foundedRecipes.map((recipe) => {
+              let result = recipe.toJSON();
+
+              return {
+                _id: result._id,
+                name: result.name,
+                cover: result.cover,
+                numberOfServing: result.numberOfServing,
+                cookingTime: result.cookingTime,
+                ingredients: result.ingredients,
+                preparationSteps: result.preparationSteps,
+                favorites: result.favorites,
+                shares: result.shares,
+                creator: result.creator,
+                category: result.category,
+              };
+            }),
+          },
+        })
+      );
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(
+      ResponseGenerator.failure({
+        code: 500,
+        reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
+        message: "Cannot find recipes",
+      })
+    );
+  }
+
+  return res.status(200).json(
+    ResponseGenerator.success({
+      code: 200,
+      message: "OK",
+      reason: { categoryId },
+    })
+  );
+};
+
+/**
  * Create Recipe
  */
 RecipeController.createRecipe = async (req, res, next) => {
   const userId = req.user.user_id;
   const {
     name,
+    categoryId,
     numberOfServing,
     cookingTime,
     ingredients,
@@ -112,6 +194,7 @@ RecipeController.createRecipe = async (req, res, next) => {
 
   console.log({
     name,
+    categoryId,
     numberOfServing,
     cookingTime,
     ingredients,
@@ -129,6 +212,20 @@ RecipeController.createRecipe = async (req, res, next) => {
   }
 
   try {
+    // check if category exists
+    let foundedCategory = await CategoryModel.findOne({ _id: categoryId });
+    foundedCategory = foundedCategory && foundedCategory.toJSON();
+
+    if (!foundedCategory) {
+      return res.status(400).json(
+        ResponseGenerator.failure({
+          code: 400,
+          reason: RequestFailureReasons.BAD_REQUEST,
+          message: "Category not found!",
+        })
+      );
+    }
+
     let foundedRecipe = await RecipeModel.findOne({ name });
     foundedRecipe = foundedRecipe && foundedRecipe.toJSON();
 
@@ -144,6 +241,7 @@ RecipeController.createRecipe = async (req, res, next) => {
       const newRecipe = new RecipeModel({
         name,
         cover,
+        category: categoryId,
         numberOfServing,
         cookingTime,
         ingredients,
@@ -151,7 +249,11 @@ RecipeController.createRecipe = async (req, res, next) => {
         creator: userId,
       });
 
-      let createdRecipe = await newRecipe.save();
+      let createdRecipe = await newRecipe
+        .save()
+        .then((rcp) =>
+          rcp.populate("category", categoryPropGeneral).execPopulate()
+        );
 
       createdRecipe = createdRecipe.toJSON();
 
@@ -163,7 +265,17 @@ RecipeController.createRecipe = async (req, res, next) => {
         { _id: userId },
         { recipes: [...foundUser.recipes, createdRecipe._id] },
         { new: true }
-      );
+      ).exec();
+
+      // update category data
+      let foundedCategory = await CategoryModel.findOne({ _id: categoryId });
+      foundedCategory = foundedCategory && foundedCategory.toJSON();
+
+      let updatedCategory = await CategoryModel.findOneAndUpdate(
+        { _id: categoryId },
+        { $inc: { recipesCount: 1 } },
+        { new: true }
+      ).exec();
 
       return res.status(201).json(
         ResponseGenerator.success({
@@ -171,15 +283,6 @@ RecipeController.createRecipe = async (req, res, next) => {
           message: "Recipe created",
           result: {
             createdRecipe,
-            updatedUserData: {
-              _id: updatedUser._id,
-              name: updatedUser.name,
-              email: updatedUser.email,
-              avatar: updatedUser.avatar,
-              recipes: updatedUser.recipes,
-              favorites: updatedUser.favorites,
-              followingCategories: updatedUser.followingCategories,
-            },
           },
         })
       );
@@ -213,7 +316,9 @@ RecipeController.updateRecipe = async (req, res, next) => {
       { _id: recipeId },
       { ...updatables },
       { new: true }
-    );
+    )
+      .populate("category", categoryPropGeneral)
+      .exec();
 
     return res.status(200).json(
       ResponseGenerator.success({
@@ -229,6 +334,7 @@ RecipeController.updateRecipe = async (req, res, next) => {
           preparationSteps: result.preparationSteps,
           favorites: result.favorites,
           shares: result.shares,
+          category: result.category,
         },
       })
     );
@@ -248,9 +354,85 @@ RecipeController.updateRecipe = async (req, res, next) => {
  * Remove recipe
  */
 RecipeController.removeRecipe = async (req, res, next) => {
+  const userId = req.user.user_id;
   const { recipeId } = req.params;
 
+  // TODO
+  //  - remove from user recipes list
+  //  - decrement category recipes
+  //  - remove recipe
+
   try {
+    let foundedUser = await UserModel.findOne({ _id: userId });
+    foundedUser = foundedUser && foundedUser.toJSON();
+
+    let foundedRecipe = await RecipeModel.findOne({ _id: recipeId });
+    foundedRecipe = foundedRecipe && foundedRecipe.toJSON();
+
+    if (!foundedRecipe) {
+      return res.status(404).json(
+        ResponseGenerator.failure({
+          code: 404,
+          message: "Recipe not found",
+          reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
+        })
+      );
+    }
+
+    const foundIndex = foundedUser.recipes.findIndex(
+      (rcp) => String(rcp) === recipeId
+    );
+
+    if (foundIndex === -1) {
+      return res.status(400).json(
+        ResponseGenerator.failure({
+          code: 400,
+          message: "User has not own the Recipe!",
+          reason: RequestFailureReasons.BAD_REQUEST,
+        })
+      );
+    }
+
+    // check if user liked recipe before
+    const foundLikedRecipeIndex = foundedUser.favorites.findIndex(
+      (idx) => String(idx) === recipeId
+    );
+
+    if (foundLikedRecipeIndex !== -1) {
+      const newFavoriteArr = [
+        ...foundedUser.favorites.slice(0, foundLikedRecipeIndex),
+        ...foundedUser.favorites.slice(
+          foundLikedRecipeIndex + 1,
+          foundedUser.favorites.length
+        ),
+      ];
+
+      let updateUser = await UserModel.findOneAndUpdate(
+        { _id: userId },
+        { favorites: newFavoriteArr },
+        { new: true }
+      );
+    }
+
+    // remove from user recipes
+    const newRecipesArr = [
+      ...foundedUser.recipes.slice(0, foundIndex),
+      ...foundedUser.recipes.slice(foundIndex + 1, foundedUser.recipes.length),
+    ];
+
+    let updatedUser = await UserModel.findOneAndUpdate(
+      { _id: userId },
+      { recipes: newRecipesArr },
+      { new: true }
+    );
+
+    // decrement category recipes count
+    let updatedCategory = await CategoryModel.findOneAndUpdate(
+      { _id: foundedRecipe.category },
+      { $inc: { recipesCount: -1 } },
+      { new: true }
+    );
+
     let result = await RecipeModel.findOneAndRemove({ _id: recipeId });
 
     return res.status(200).json(
@@ -258,15 +440,29 @@ RecipeController.removeRecipe = async (req, res, next) => {
         code: 200,
         message: "Record removed!",
         result: {
-          _id: result._id,
-          name: result.name,
-          cover: result.cover,
-          numberOfServing: result.numberOfServing,
-          cookingTime: result.cookingTime,
-          ingredients: result.ingredients,
-          preparationSteps: result.preparationSteps,
-          favorites: result.favorites,
-          shares: result.shares,
+          updatedUser: {
+            _id: updatedUser._id,
+            name: updatedUser.name,
+            email: updatedUser.email,
+            avatar: updatedUser.avatar,
+            recipes: updatedUser.recipes,
+            favorites: updatedUser.favorites,
+            followingCategories: updatedUser.followingCategories,
+          },
+          updatedCategory,
+          recipe: {
+            _id: result._id,
+            name: result.name,
+            cover: result.cover,
+            numberOfServing: result.numberOfServing,
+            cookingTime: result.cookingTime,
+            ingredients: result.ingredients,
+            preparationSteps: result.preparationSteps,
+            favorites: result.favorites,
+            shares: result.shares,
+            creator: result.creator,
+            category: result.category,
+          },
         },
       })
     );
@@ -300,18 +496,24 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
         (rcp) => String(rcp) === recipeId
       );
 
+      console.log(">>>>", foundIndex);
+
       let newFavorites = [];
       if (foundIndex === -1) {
+        console.log("1111");
         newFavorites = [...foundUser.favorites, recipeId];
       } else {
+        console.log("2222");
         newFavorites = [
           ...foundUser.favorites.slice(0, foundIndex),
           ...foundUser.favorites.slice(
             foundIndex + 1,
-            foundUser.favorites.length - 1
+            foundUser.favorites.length
           ),
         ];
       }
+
+      console.log(">>>", newFavorites);
 
       let userData = await UserModel.findOneAndUpdate(
         { _id: userId },
@@ -323,7 +525,9 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
         { _id: recipeId },
         { $inc: { favorites: foundIndex === -1 ? 1 : -1 } },
         { new: true }
-      );
+      )
+        .populate("category", categoryPropGeneral)
+        .exec();
 
       return res.status(200).json(
         ResponseGenerator.success({
@@ -349,6 +553,7 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
               preparationSteps: updatedRecipe.preparationSteps,
               favorites: updatedRecipe.favorites,
               shares: updatedRecipe.shares,
+              category: updatedRecipe.category,
             },
           },
         })
@@ -378,7 +583,6 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
  * share reciep
  */
 RecipeController.shareRecipe = async (req, res, next) => {
-  const userId = req.user.user_id;
   const { recipeId } = req.body;
 
   try {
@@ -389,7 +593,9 @@ RecipeController.shareRecipe = async (req, res, next) => {
         { _id: recipeId },
         { $inc: { shares: 1 } },
         { new: true }
-      );
+      )
+        .populate("category", categoryPropGeneral)
+        .exec();
 
       return res.status(200).json(
         ResponseGenerator.success({
@@ -405,6 +611,7 @@ RecipeController.shareRecipe = async (req, res, next) => {
             preparationSteps: updatedRecipe.preparationSteps,
             favorites: updatedRecipe.favorites,
             shares: updatedRecipe.shares,
+            category: updatedRecipe.category,
           },
         })
       );

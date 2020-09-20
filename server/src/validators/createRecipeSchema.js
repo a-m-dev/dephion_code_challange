@@ -9,6 +9,9 @@ const createRecipeSchema = Joi.object({
     .allow("")
     .description("image file")
     .optional(),
+  categoryId: Joi.string().required().messages({
+    "any.required": "assign recipe to a category by categoryId key",
+  }),
   numberOfServing: Joi.number().required().messages({
     "any.required": "numberOfServing is required",
   }),

@@ -3,7 +3,10 @@ import {
   propGeneral as categoryPropGeneral,
 } from "./category.model";
 import { Model as UserModel } from "../user/user.model";
-import { propGeneral as userPropGeneral } from "../user/user.model";
+import {
+  propGeneral as userPropGeneral,
+  propMini as userPropMini,
+} from "../user/user.model";
 import ResponseGenerator from "../../utils/ResponseGenerator";
 import RequestFailureReasons from "../../constants/RequestFailureReasons";
 
@@ -52,7 +55,7 @@ CategoryController.createCategory = async (req, res, next) => {
 
       let createdCategory = await newCategory
         .save()
-        .then((t) => t.populate("creator", userPropGeneral).execPopulate());
+        .then((t) => t.populate("creator", userPropMini).execPopulate());
 
       createdCategory = createdCategory.toJSON();
 
@@ -90,7 +93,7 @@ CategoryController.createCategory = async (req, res, next) => {
 CategoryController.getCategoryList = async (req, res, next) => {
   try {
     const getAllCategories = await CategoryModel.find()
-      .populate("creator", userPropGeneral)
+      .populate("creator", userPropMini)
       .exec();
 
     return res.status(200).json(
@@ -134,7 +137,7 @@ CategoryController.getTopCategories = async (req, res, next) => {
   try {
     const getAllCategories = await CategoryModel.find()
       .sort({ followers: 1 })
-      .populate("creator", userPropGeneral)
+      .populate("creator", userPropMini)
       .limit(5)
       .exec();
 
@@ -181,7 +184,7 @@ CategoryController.searchCategoryList = async (req, res, next) => {
   try {
     const result = await CategoryModel.find({
       $or: [{ name: new RegExp(q, "gi") }],
-    });
+    }).populate("creator", userPropMini);
 
     return res.status(200).json(
       ResponseGenerator.success({
@@ -240,7 +243,7 @@ CategoryController.followCategory = async (req, res, next) => {
         ...foundUser.followingCategories.slice(0, findIndex),
         ...foundUser.followingCategories.slice(
           findIndex + 1,
-          foundUser.followingCategories.length - 1
+          foundUser.followingCategories.length
         ),
       ];
 
@@ -266,8 +269,6 @@ CategoryController.followCategory = async (req, res, next) => {
             name: userData.name,
             email: userData.email,
             avatar: userData.avatar,
-            recipes: userData.recipes,
-            favorites: userData.favorites,
             followingCategories: userData.followingCategories,
           },
           categoryData: {

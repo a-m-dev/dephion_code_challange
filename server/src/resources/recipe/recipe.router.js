@@ -17,7 +17,11 @@ RecipeRouter.route("/getRecipe/:recipeId").get(
   dataValidator(recipeIdValidatorSchema, ValidatorParserTypes.PARAM),
   RecipeController.getRecipe
 );
+
 RecipeRouter.route("/getRecipeList").get(RecipeController.getRecipeList);
+RecipeRouter.route("/getRecipeByCategory/:categoryId").get(
+  RecipeController.getRecipeByCategory
+);
 RecipeRouter.route("/createRecipe").post(
   ImageUploader.single("cover"),
   dataValidator(createRecipeSchema, ValidatorParserTypes.BODY),
@@ -33,6 +37,7 @@ RecipeRouter.route("/updateRecipe/:recipeId").patch(
 );
 
 RecipeRouter.route("/deleteRecipe/:recipeId").delete(
+  authenticateToken,
   RecipeController.removeRecipe
 );
 
