@@ -4,7 +4,7 @@ import { HeaderWrapper } from "./styles";
 
 import { PublicRoutes } from "utils/routes";
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <HeaderWrapper>
       <NavLink to={PublicRoutes.home}>Home</NavLink>

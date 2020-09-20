@@ -1,7 +1,7 @@
 import React from "react";
 import { HomeWrapper } from "./styles";
 
-const Home: React.FC = () => {
+const Home = () => {
   return <HomeWrapper>Hi from home</HomeWrapper>;
 };
 

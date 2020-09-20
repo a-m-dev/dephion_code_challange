@@ -1,7 +1,7 @@
 import React from "react";
 import { AboutWrapper } from "./styles";
 
-const About: React.FC = () => {
+const About = () => {
   return <AboutWrapper>Hi from About</AboutWrapper>;
 };
 

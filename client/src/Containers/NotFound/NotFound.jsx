@@ -1,7 +1,7 @@
 import React from "react";
 import { NotFoundWrapper } from "./styles";
 
-const NotFound: React.FC = () => {
+const NotFound = () => {
   return (
     <NotFoundWrapper>
       <h1>NOT FOUND!</h1>

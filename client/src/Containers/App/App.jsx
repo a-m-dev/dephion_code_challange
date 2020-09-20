@@ -11,7 +11,7 @@ import NotFound from "Containers/NotFound";
 
 import { RouterRoutes } from "utils/routes";
 
-const App: React.FC = () => {
+const App = () => {
   return (
     <AppWrapper>
       <Normalize />
