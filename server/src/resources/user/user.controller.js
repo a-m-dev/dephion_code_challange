@@ -113,7 +113,6 @@ UserController.register = async (req, res, next) => {
     const foundUser = await UserModel.findOne({ email: email }).exec();
 
     if (!foundUser) {
-      console.log("User creation triggered");
       Bcrypt.hash(password, 12, async (err, hash) => {
         if (err) {
           return res.status(500).json(

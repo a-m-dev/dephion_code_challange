@@ -192,15 +192,6 @@ RecipeController.createRecipe = async (req, res, next) => {
   } = req.body;
   const cover = (req.file && req.file.path) || undefined;
 
-  console.log({
-    name,
-    categoryId,
-    numberOfServing,
-    cookingTime,
-    ingredients,
-    preparationSteps,
-  });
-
   if (!cover) {
     return res.status(400).json(
       ResponseGenerator.failure({
@@ -288,7 +279,7 @@ RecipeController.createRecipe = async (req, res, next) => {
       );
     }
   } catch (error) {
-    console.log({ error });
+    console.log(error);
     return res.status(500).json(
       ResponseGenerator.failure({
         code: 500,
@@ -496,14 +487,10 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
         (rcp) => String(rcp) === recipeId
       );
 
-      console.log(">>>>", foundIndex);
-
       let newFavorites = [];
       if (foundIndex === -1) {
-        console.log("1111");
         newFavorites = [...foundUser.favorites, recipeId];
       } else {
-        console.log("2222");
         newFavorites = [
           ...foundUser.favorites.slice(0, foundIndex),
           ...foundUser.favorites.slice(
@@ -512,8 +499,6 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
           ),
         ];
       }
-
-      console.log(">>>", newFavorites);
 
       let userData = await UserModel.findOneAndUpdate(
         { _id: userId },
