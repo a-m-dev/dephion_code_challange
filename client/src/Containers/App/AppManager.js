@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useInjectReducer } from "utils/injectReducer";
 import { useInjectSaga } from "utils/injectSaga";
 import { useBindDispatch } from "utils/redux/useBindDispatch";
@@ -10,19 +10,28 @@ import { getItemTestAction } from "./redux/actions";
 
 const GlobalDataKetOnRedux = "GlobalData";
 
-const AppManager = () => {
+const AppManager = ({ location }) => {
   useInjectReducer({ key: GlobalDataKetOnRedux, reducer: GlobalReducer });
   useInjectSaga({ key: GlobalDataKetOnRedux, saga: GlobalSaga });
 
   const [getTestItem] = useBindDispatch([getItemTestAction]);
 
   useEffect(() => {
-    console.log("MOUNT");
     getTestItem({ x: "xxxx", y: "yyyy" });
   }, [getTestItem]);
 
+  const isFullScreenMode = useMemo(() => {
+    const { pathname } = location;
+    const fullScreenBlackList = ["/auth"];
+
+    if (fullScreenBlackList.includes(pathname)) return true;
+    else return false;
+  }, [location]);
+
   return {
-    one: "this is one data",
+    data: {
+      isFullScreenMode,
+    },
   };
 };
 

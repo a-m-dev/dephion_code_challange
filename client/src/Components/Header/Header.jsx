@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { PublicRoutes } from "utils/routes";
 
-import { Button } from "Components";
+import { Button, CatchMeOnSocial } from "Components";
 import LOGO from "Images/dephion_logo_s.png";
 
 import {
@@ -26,26 +26,6 @@ const Header = ({ history }) => {
     [history]
   );
 
-  const socialData = useMemo(() => {
-    return [
-      {
-        id: 1,
-        link: "https://stackoverflow.com/users/5354341/a-m-dev",
-        icon: "icon-stackoverflow",
-      },
-      {
-        id: 2,
-        link: "https://www.linkedin.com/in/ahmad-mirzaei-b60b2618a/",
-        icon: "icon-linkedin",
-      },
-      {
-        id: 3,
-        link: "https://github.com/a-m-dev",
-        icon: "icon-github-circled",
-      },
-    ];
-  }, []);
-
   return (
     <HeaderWrapper>
       <TopSection>
@@ -54,13 +34,7 @@ const Header = ({ history }) => {
           <CompanyName>Dephion</CompanyName>
         </LogoArea>
 
-        <SocialArea>
-          {socialData.map(({ id, link, icon }) => (
-            <a key={id} href={link} target="_blank" rel="noopener noreferrer">
-              <i className={icon} />
-            </a>
-          ))}
-        </SocialArea>
+        <CatchMeOnSocial />
       </TopSection>
 
       <MenuSection>

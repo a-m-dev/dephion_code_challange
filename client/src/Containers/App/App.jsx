@@ -1,6 +1,6 @@
 import React from "react";
 import { Normalize } from "styled-normalize";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { Header, Footer } from "Components";
 import { BodyWrapper } from "./styles";
 import GlobalStyle from "./stylesGlobal";
@@ -15,17 +15,20 @@ import { RouterRoutes } from "utils/routes";
 import { GlobalAppContext } from "./context";
 import AppManager from "./AppManager";
 
-const App = () => {
-  const { data } = AppManager();
+const App = (props) => {
+  const {
+    data,
+    data: { isFullScreenMode },
+  } = AppManager(props);
 
   return (
     <GlobalAppContext.Provider value={{ data }}>
       <Normalize />
       <GlobalStyle />
 
-      <Header />
+      {!isFullScreenMode && <Header />}
 
-      <BodyWrapper>
+      <BodyWrapper isFullScreenMode={isFullScreenMode}>
         <Switch>
           <Route
             exact
@@ -40,9 +43,9 @@ const App = () => {
         </Switch>
       </BodyWrapper>
 
-      <Footer />
+      {!isFullScreenMode && <Footer />}
     </GlobalAppContext.Provider>
   );
 };
 
-export default App;
+export default withRouter(App);

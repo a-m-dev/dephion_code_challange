@@ -48,22 +48,6 @@ export const CompanyName = styled.h1`
   user-select: none;
 `;
 
-export const SocialArea = styled.div`
-  width: calc(185px + 1.2rem);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  & a i {
-    color: var(--light-gray);
-    font-size: 1.35rem;
-
-    &:hover {
-      color: var(--bright-green);
-    }
-  }
-`;
-
 export const MenuSection = styled.section`
   margin: 0 auto;
   padding: 0 1rem;

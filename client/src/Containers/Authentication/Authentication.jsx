@@ -1,15 +1,43 @@
-import React, { useEffect } from "react";
-import { AuthenticationWrapper } from "./styles";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { LoginForm, RegisterForm } from "./components";
+import { CatchMeOnSocial } from "Components";
+import { PublicRoutes } from "utils/routes";
+import LOGO from "Images/dephion_logo_s.png";
 
-const Authentication = ({ location }) => {
-  const qs = new URLSearchParams(location.search);
-  const type = qs.get("type");
+import AuthenticationManager from "./AuthenticationManager";
+import {
+  AuthenticationWrapper,
+  Heading,
+  Logo,
+  CompanyName,
+  AuthFooter,
+  Creator,
+} from "./styles";
 
-  useEffect(() => {
-    console.log({ type });
-  });
+const Authentication = (props) => {
+  const {
+    data: { shouldShowLoginForm, shouldShowRegisterForm },
+  } = AuthenticationManager(props);
 
-  return <AuthenticationWrapper>Hi from Authentication</AuthenticationWrapper>;
+  return (
+    <AuthenticationWrapper>
+      <Heading>
+        <NavLink to={PublicRoutes.home}>
+          <Logo src={LOGO} alt="Logo" />
+        </NavLink>
+        <CompanyName>Dephion</CompanyName>
+      </Heading>
+
+      {shouldShowLoginForm && <LoginForm />}
+      {shouldShowRegisterForm && <RegisterForm />}
+
+      <AuthFooter>
+        <Creator>© Copyright 2020, by amdev</Creator>
+        <CatchMeOnSocial />
+      </AuthFooter>
+    </AuthenticationWrapper>
+  );
 };
 
 export default Authentication;
