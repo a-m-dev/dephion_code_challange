@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const AuthenticationWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
   max-width: 480px;
   height: 100vh;
   margin: 0 auto;
+  padding-top: 7.5vh;
 `;
 
 export const Heading = styled.section`

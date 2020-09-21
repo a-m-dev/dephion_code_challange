@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 import { PublicRoutes } from "utils/routes";
 
@@ -11,7 +11,6 @@ import {
   LogoArea,
   Logo,
   CompanyName,
-  SocialArea,
   MenuSection,
   Menus,
   Authenticate,
