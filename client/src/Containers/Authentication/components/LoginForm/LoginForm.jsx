@@ -1,11 +1,12 @@
 import React from "react";
 import { Form, InputField, Button } from "Components";
+import { PublicRoutes } from "utils/routes";
 
 import LoginFormManager from "./LoginFormManager";
-import { LoginWrapper, SubmittionArea } from "./styles";
+import { LoginWrapper, SubmittionArea, NavigateToLogin } from "./styles";
 
 const LoginForm = () => {
-  const { data, formProps } = LoginFormManager();
+  const { formProps } = LoginFormManager();
 
   return (
     <LoginWrapper>
@@ -29,6 +30,9 @@ const LoginForm = () => {
 
         <SubmittionArea>
           <Button label="Login" type="submit" />
+          <NavigateToLogin to={`${PublicRoutes.auth}?type=register`}>
+            Register Here
+          </NavigateToLogin>
         </SubmittionArea>
       </Form>
     </LoginWrapper>

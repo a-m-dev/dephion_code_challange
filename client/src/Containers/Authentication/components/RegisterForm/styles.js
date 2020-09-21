@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
-export const LoginWrapper = styled.section`
+export const RegisterWrapper = styled.section`
   width: 100%;
   max-width: 375px;
   min-height: 200px;
@@ -27,7 +27,7 @@ export const SubmittionArea = styled.div`
   }
 `;
 
-export const NavigateToLogin = styled(NavLink)`
+export const NavigateToRegister = styled(NavLink)`
   width: 100%;
   margin-top: 1.5rem;
   text-align: center;

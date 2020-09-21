@@ -5,19 +5,20 @@ export const AuthenticationWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   flex-direction: column;
-  max-width: 480px;
+  max-width: 375px;
   height: 100vh;
   margin: 0 auto;
-  padding-top: 7.5vh;
+  padding-top: 5vh;
 `;
 
 export const Heading = styled.section`
   width: 100%;
-  min-height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 
   &:hover img {
     box-shadow: 0px 5px 40px rgba(var(--purple), 0.25);
@@ -25,24 +26,18 @@ export const Heading = styled.section`
 `;
 
 export const Logo = styled.img`
-  width: 128px;
-  height: 128px;
+  width: 100px;
+  height: 100px;
   border-radius: 0.625rem;
   box-shadow: 0px 6px 10px rgba(var(--purple), 0);
   transition: box-shadow 0.2s ease-in-out;
-`;
-
-export const CompanyName = styled.h1`
-  color: var(--primary-color);
-  user-select: none;
 `;
 
 export const AuthFooter = styled.footer`
   width: 100%;
   min-height: 80px;
   max-width: 380px;
-  position: fixed;
-  bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -10,7 +10,6 @@ import {
   AuthenticationWrapper,
   Heading,
   Logo,
-  CompanyName,
   AuthFooter,
   Creator,
 } from "./styles";
@@ -26,7 +25,6 @@ const Authentication = (props) => {
         <NavLink to={PublicRoutes.home}>
           <Logo src={LOGO} alt="Logo" />
         </NavLink>
-        <CompanyName>Dephion</CompanyName>
       </Heading>
 
       {shouldShowLoginForm && <LoginForm />}

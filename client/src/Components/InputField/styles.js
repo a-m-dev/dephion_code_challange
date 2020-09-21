@@ -9,7 +9,7 @@ export const InputWrapper = styled.div`
 
 export const InputLabel = styled.label`
   position: relative;
-  color: var(--light-gray);
+  color: rgba(var(--gray), 0.7);
 `;
 
 export const Input = styled.input`
@@ -24,6 +24,10 @@ export const Input = styled.input`
   transition: 5000s ease-in-out 0s;
   font-size: 1rem;
   background-color: var(--primary-light);
+
+  &::placeholder {
+    color: rgba(var(--gray), 0.2);
+  }
 `;
 
 export const InputLayout = styled.div`
