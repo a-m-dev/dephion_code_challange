@@ -2,20 +2,20 @@ import { useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useBindDispatch } from "utils/redux/useBindDispatch";
 
-import { loginAction } from "Containers/App/redux/actions";
+import { registerAction } from "Containers/App/redux/actions";
 import initialState from "Containers/App/redux/initialState";
 import { initialValues, validationSchema } from "./form";
 
 const RegisterFormManager = () => {
   const { loading } = useSelector((state) => state.GlobalData || initialState);
 
-  const [login] = useBindDispatch([loginAction]);
+  const [register] = useBindDispatch([registerAction]);
 
   const handleRegisterSubmit = useCallback(
     (args) => {
-      login(args);
+      register(args);
     },
-    [login]
+    [register]
   );
 
   return {

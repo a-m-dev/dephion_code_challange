@@ -1,6 +1,7 @@
 import invariant from "invariant";
 import { isEmpty, isFunction, isString } from "lodash";
-
+import { persistReducer } from "redux-persist";
+import persistorConfig from "redux/persistorConfig";
 import checkStore from "./checkStore";
 import createReducer from "../redux/rootReducer";
 
@@ -20,7 +21,12 @@ export function injectReducerFactory(store, isValid) {
       return;
 
     store.injectedReducers[key] = reducer;
-    store.replaceReducer(createReducer(store.injectedReducers));
+    const persistedReducer = persistReducer(
+      persistorConfig,
+      createReducer(store.injectedReducers)
+    );
+    store.replaceReducer(persistedReducer);
+    store.persistor.persist();
   };
 }
 

@@ -16,12 +16,15 @@ const GlobalReducer = (state = initialState, action) =>
       }
 
       case UPDATE_USER_DATA: {
-        draft.data = action.payload.users;
+        const { expiresAt, token, type } = action.payload;
+        draft.userData = action.payload.userData;
+        draft.authData = { expiresAt, token, type };
         break;
       }
 
       case RESET_USER_DATA: {
-        draft.data = {};
+        draft.userData = {};
+        draft.authData = {};
         draft.error = false;
         draft.loading = false;
         break;

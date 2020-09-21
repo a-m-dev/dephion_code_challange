@@ -2,6 +2,21 @@ import * as Yup from "yup";
 
 import { passwordRegex, loginUserNameRegex } from "utils/regexUtils";
 
+function equalTo(ref, msg) {
+  return Yup.mixed().test({
+    name: "equalTo",
+    exclusive: false,
+    message: msg || "${path} must be the same as ${reference}",
+    params: {
+      reference: ref.path,
+    },
+    test: function (value) {
+      return value === this.resolve(ref);
+    },
+  });
+}
+Yup.addMethod(Yup.string, "equalTo", equalTo);
+
 const validationSchema = Yup.object().shape({
   name: Yup.string()
     .matches(loginUserNameRegex, "min 5, only upper and lower")
@@ -13,8 +28,8 @@ const validationSchema = Yup.object().shape({
     .matches(passwordRegex, "min 6 char, lower and upper case")
     .required("Password field is required"),
   repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null])
-    .required("Password confirm is required"),
+    .equalTo(Yup.ref("password"), "Passwords must match")
+    .required("Required"),
 });
 
 export default validationSchema;

@@ -10,6 +10,7 @@ export default function checkStore(store) {
     runSaga: isFunction,
     injectedReducers: isObject,
     injectedSagas: isObject,
+    persistor: isObject,
   };
   invariant(
     conformsTo(store, shape),

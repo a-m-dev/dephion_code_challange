@@ -1,4 +1,4 @@
-import { all, takeLatest } from "redux-saga/effects";
+import { all, put, takeLatest } from "redux-saga/effects";
 import requestCall from "utils/redux/requestCall";
 import apiEndpoints from "utils/api/apiEndpoints";
 import { RequestMethods } from "Constants";
@@ -6,10 +6,13 @@ import { push } from "connected-react-router";
 import { toast } from "react-toastify";
 import { PublicRoutes } from "utils/routes";
 
-import { POST_LOGIN } from "./constants";
-import { loadingAction } from "Containers/App/redux/actions";
+import { POST_REGISTER, POST_LOGIN } from "./constants";
+import {
+  loadingAction,
+  updateUserDataAction,
+} from "Containers/App/redux/actions";
 
-function* postLoginWorker({
+function* postRegisterWorker({
   payload: { name, email, password, repeatPassword },
 }) {
   const url = apiEndpoints.auth.register();
@@ -35,6 +38,29 @@ function* postLoginWorker({
   yield requestCall({ url, method, actions, data });
 }
 
+function* postLoginWorker({ payload: { email, password } }) {
+  const url = apiEndpoints.auth.login();
+  const method = RequestMethods.POST;
+  const actions = {
+    loading: (loadingStatus) => loadingAction(loadingStatus),
+    success: [
+      () => push(PublicRoutes.home),
+      ({ code, message, data }) => updateUserDataAction(data),
+    ],
+    failure: (error) => {
+      toast.error(error.message);
+    },
+  };
+
+  const data = {
+    email,
+    password,
+  };
+
+  yield requestCall({ url, method, actions, data });
+}
+
 export default function* GlobalSaga() {
+  yield all([takeLatest(POST_REGISTER, postRegisterWorker)]);
   yield all([takeLatest(POST_LOGIN, postLoginWorker)]);
 }

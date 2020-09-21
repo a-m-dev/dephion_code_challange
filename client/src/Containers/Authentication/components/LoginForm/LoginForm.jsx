@@ -6,7 +6,10 @@ import LoginFormManager from "./LoginFormManager";
 import { LoginWrapper, SubmittionArea, NavigateToLogin } from "./styles";
 
 const LoginForm = () => {
-  const { formProps } = LoginFormManager();
+  const {
+    formProps,
+    data: { loading },
+  } = LoginFormManager();
 
   return (
     <LoginWrapper>
@@ -29,7 +32,7 @@ const LoginForm = () => {
         />
 
         <SubmittionArea>
-          <Button label="Login" type="submit" />
+          <Button label="Login" type="submit" loading={loading} />
           <NavigateToLogin to={`${PublicRoutes.auth}?type=register`}>
             Register Here
           </NavigateToLogin>

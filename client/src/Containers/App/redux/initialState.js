@@ -1,7 +1,8 @@
 const initialState = {
   error: false,
   loading: false,
-  data: {},
+  authData: {},
+  userData: {},
 };
 
 export default initialState;
