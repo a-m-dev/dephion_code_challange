@@ -4,8 +4,6 @@ import { PublicRoutes } from "utils/routes";
 import { FooterWrapper, FooterBody, FooterCopy, FooterMenu } from "./styles";
 
 const Footer = () => {
-  console.log(PublicRoutes);
-
   const footerMenuData = useMemo(() => {
     return [
       { id: 1, name: "Guidlines", path: PublicRoutes.footer.guidlines },

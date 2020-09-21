@@ -12,9 +12,14 @@ import NotFound from "Containers/NotFound";
 
 import { RouterRoutes } from "utils/routes";
 
+import { GlobalAppContext } from "./context";
+import AppManager from "./AppManager";
+
 const App = () => {
+  const { data } = AppManager();
+
   return (
-    <>
+    <GlobalAppContext.Provider value={{ data }}>
       <Normalize />
       <GlobalStyle />
 
@@ -36,7 +41,7 @@ const App = () => {
       </BodyWrapper>
 
       <Footer />
-    </>
+    </GlobalAppContext.Provider>
   );
 };
 
