@@ -11,8 +11,8 @@ const GlobalStyle = createGlobalStyle`
     --black-rgb: 0, 0, 0;
     --gray: 100, 100, 100;
 
-    --primary-color: #ec6425;
-    --secondary-color: #6425ec;
+    --primary-color: #6425ec;
+    --secondary-color: #ec6425;
     --sky-blue: #3299cb;
     --bright-red: #ec2555;
     --bright-green: #25ec64;
@@ -43,6 +43,16 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     background-color: var(--primary-light);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--median-gray);
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--sky-blue);
+    }
   }
 `;
 
