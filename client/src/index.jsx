@@ -2,8 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
 import App from "Containers/App";
 import configureStore from "./redux/createStore";
+import { history } from "utils/history";
 import * as serviceWorker from "./serviceWorker";
 
 import "./font-icon.css";
@@ -16,7 +18,9 @@ ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <App />
+        <ConnectedRouter history={history}>
+          <App />
+        </ConnectedRouter>
       </Provider>
     </BrowserRouter>
   </React.StrictMode>,

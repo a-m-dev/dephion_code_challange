@@ -6,7 +6,10 @@ import RegisterFormManager from "./RegisterFormManager";
 import { RegisterWrapper, SubmittionArea, NavigateToRegister } from "./styles";
 
 const RegisterForm = () => {
-  const { formProps } = RegisterFormManager();
+  const {
+    formProps,
+    data: { loading },
+  } = RegisterFormManager();
 
   return (
     <RegisterWrapper>
@@ -33,7 +36,7 @@ const RegisterForm = () => {
           label="Password"
           placeholder="Password"
           autoComplete="off"
-          icon=" icon-key"
+          icon="icon-key"
         />
         <InputField
           type="password"
@@ -41,11 +44,11 @@ const RegisterForm = () => {
           label="ReType Password"
           placeholder="Password"
           autoComplete="off"
-          icon=" icon-key"
+          icon="icon-key"
         />
 
         <SubmittionArea>
-          <Button label="Register" type="submit" />
+          <Button label="Register" type="submit" loading={loading} />
           <NavigateToRegister to={`${PublicRoutes.auth}?type=login`}>
             Login Here
           </NavigateToRegister>

@@ -1,6 +1,6 @@
 import produce from "immer";
 import initialState from "./initialState";
-import { ERROR, LOADING, UPDATE_ITEM, RESET_ITEM } from "./constants";
+import { ERROR, LOADING, UPDATE_USER_DATA, RESET_USER_DATA } from "./constants";
 
 const GlobalReducer = (state = initialState, action) =>
   produce(state, (draft) => {
@@ -15,12 +15,12 @@ const GlobalReducer = (state = initialState, action) =>
         break;
       }
 
-      case UPDATE_ITEM: {
+      case UPDATE_USER_DATA: {
         draft.data = action.payload.users;
         break;
       }
 
-      case RESET_ITEM: {
+      case RESET_USER_DATA: {
         draft.data = {};
         draft.error = false;
         draft.loading = false;

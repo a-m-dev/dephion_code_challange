@@ -2,28 +2,39 @@ import { all, takeLatest } from "redux-saga/effects";
 import requestCall from "utils/redux/requestCall";
 import apiEndpoints from "utils/api/apiEndpoints";
 import { RequestMethods } from "Constants";
+import { push } from "connected-react-router";
+import { toast } from "react-toastify";
+import { PublicRoutes } from "utils/routes";
 
-import { GET_ITEM } from "./constants";
-import {
-  loadingTestAction,
-  errorTestAction,
-  updateItemTestAction,
-} from "./actions";
+import { POST_LOGIN } from "./constants";
+import { loadingAction } from "Containers/App/redux/actions";
 
-function* getItemWorker({ payload: { x, y } }) {
-  console.log("SAGA PAYLOAD", x, y);
-
-  const url = apiEndpoints.user.getUserList();
-  const method = RequestMethods.GET;
+function* postLoginWorker({
+  payload: { name, email, password, repeatPassword },
+}) {
+  const url = apiEndpoints.auth.register();
+  const method = RequestMethods.POST;
   const actions = {
-    loading: (loadingStatus) => loadingTestAction(loadingStatus),
-    success: (data) => updateItemTestAction(data),
-    failure: (error) => errorTestAction(error),
+    loading: (loadingStatus) => loadingAction(loadingStatus),
+    success: (data) => {
+      toast.success(data.message);
+      return push(`${PublicRoutes.auth}?type=login`);
+    },
+    failure: (error) => {
+      toast.error(error.message);
+    },
   };
 
-  yield requestCall({ url, method, actions });
+  const data = {
+    name,
+    email,
+    password,
+    repeatPassword,
+  };
+
+  yield requestCall({ url, method, actions, data });
 }
 
 export default function* GlobalSaga() {
-  yield all([takeLatest(GET_ITEM, getItemWorker)]);
+  yield all([takeLatest(POST_LOGIN, postLoginWorker)]);
 }

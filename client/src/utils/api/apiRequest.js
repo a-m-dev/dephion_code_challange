@@ -22,20 +22,22 @@ function apiRequest({ url, method, data, headers = {} }) {
     })
     .then((res) => {
       const {
-        status,
-        message,
-        data: { data },
-      } = res;
+        meta: { code, message },
+        data,
+      } = res.data;
 
-      if (status !== 200) {
-        console.log("BEFORE REJECT >>>", { res });
-        return Promise.reject({ message });
+      if (code === 200 || code === 201) {
+        return { code, message, data };
+      } else {
+        console.log("BEFORE REJECT >>>", { code, message, data });
+        return Promise.reject(res);
       }
-
-      return data;
     })
     .catch((error) => {
-      // const { message } = error;
+      const {
+        meta: { code },
+        error: { message },
+      } = error.response.data;
 
       // if (error.response && error.response.status >= 400) {
       //   console.log("BEFORE 409 || 405");
@@ -52,8 +54,7 @@ function apiRequest({ url, method, data, headers = {} }) {
       //   });
       // }
 
-      const { message: errMessage } = error;
-      return Promise.reject({ message: errMessage });
+      return Promise.reject({ code, message });
     });
 }
 

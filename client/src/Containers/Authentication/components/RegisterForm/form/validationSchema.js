@@ -12,7 +12,9 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .matches(passwordRegex, "min 6 char, lower and upper case")
     .required("Password field is required"),
-  repeatPassword: Yup.ref("password"),
+  repeatPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null])
+    .required("Password confirm is required"),
 });
 
 export default validationSchema;

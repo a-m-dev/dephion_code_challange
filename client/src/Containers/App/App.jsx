@@ -4,6 +4,7 @@ import { Switch, Route, withRouter } from "react-router-dom";
 import { Header, Footer } from "Components";
 import { BodyWrapper } from "./styles";
 import GlobalStyle from "./stylesGlobal";
+import { ToastContainer } from "react-toastify";
 
 import Home from "Containers/Home";
 import About from "Containers/About";
@@ -14,6 +15,8 @@ import { RouterRoutes } from "utils/routes";
 
 import { GlobalAppContext } from "./context";
 import AppManager from "./AppManager";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const App = (props) => {
   const {
@@ -44,6 +47,17 @@ const App = (props) => {
       </BodyWrapper>
 
       {!isFullScreenMode && <Footer />}
+
+      <ToastContainer
+        limit={3}
+        autoClose={3000}
+        draggable={true}
+        closeOnClick={true}
+        pauseOnHover={true}
+        progress={undefined}
+        hideProgressBar={false}
+        position="bottom-center"
+      />
     </GlobalAppContext.Provider>
   );
 };

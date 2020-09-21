@@ -1,7 +1,9 @@
 export const ERROR = "TEST/ERROR";
 export const LOADING = "TEST/LOADING";
 
-export const GET_ITEM = "TEST/GET_ITEM";
-export const UPDATE_ITEM = "TEST/UPDATE_ITEM";
+// Auth
+export const POST_LOGIN = "DEPHION/POST_LOGIN";
+export const POST_REGISTER = "DEPHION/POST_REGISTER";
+export const UPDATE_USER_DATA = "DEPHION/UPDATE_USER_DATA";
 
-export const RESET_ITEM = "TEST/RESET_ITEM";
+export const RESET_USER_DATA = "DEPHION/RESET_USER_DATA";

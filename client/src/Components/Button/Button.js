@@ -1,10 +1,11 @@
 import React from "react";
 import { ButtonElement } from "./styles";
+import { Loading } from "Components";
 
-const Button = ({ label, onClick, ...rest }) => {
+const Button = ({ label, onClick, loading, ...rest }) => {
   return (
     <ButtonElement onClick={onClick} {...rest}>
-      <span>{label}</span>
+      {loading ? <Loading /> : <span>{label}</span>}
     </ButtonElement>
   );
 };

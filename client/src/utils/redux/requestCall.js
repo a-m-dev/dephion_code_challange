@@ -14,9 +14,9 @@ function* requestCall({
     const data = yield apiRequest({ url, method, ...options });
     yield handleActions(success, data);
   } catch (error) {
-    const { status, message } = error || {};
+    const { code, message } = error || {};
 
-    if (status === 401) {
+    if (code === 401) {
       // TODO:
       // - enque message :: you are unauthorized
       // - call logout action
@@ -25,7 +25,7 @@ function* requestCall({
     // TODO:
     // - enque error with error msg
     // - call fauluer action
-    yield handleActions(failure, { status, message });
+    yield handleActions(failure, { code, message });
   } finally {
     yield handleActions(loading, false);
   }

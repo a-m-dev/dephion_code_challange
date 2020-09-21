@@ -22,6 +22,7 @@ export const SubmittionArea = styled.div`
 
   & button {
     width: 100%;
+    min-height: 18px;
     padding: 1rem 0;
     font-size: 1rem;
   }
