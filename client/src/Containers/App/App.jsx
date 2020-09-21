@@ -1,17 +1,20 @@
 import React from "react";
 import { Normalize } from "styled-normalize";
-import { Switch, Route, withRouter } from "react-router-dom";
+import { Switch, withRouter } from "react-router-dom";
 import { Header, Footer } from "Components";
 import { BodyWrapper } from "./styles";
 import GlobalStyle from "./stylesGlobal";
 import { ToastContainer } from "react-toastify";
 
+import { PublicRoute, PrivateRoute } from "./components/Router";
+
 import Home from "Containers/Home";
 import About from "Containers/About";
 import Authentication from "Containers/Authentication";
+import Profile from "Containers/Profile";
 import NotFound from "Containers/NotFound";
 
-import { RouterRoutes } from "utils/routes";
+import { RouterRoutes, PrivateRoutes } from "utils/routes";
 
 import { GlobalAppContext } from "./context";
 import AppManager from "./AppManager";
@@ -21,7 +24,8 @@ import "react-toastify/dist/ReactToastify.css";
 const App = (props) => {
   const {
     data,
-    data: { isFullScreenMode },
+    data: { isLoggedIn, isFullScreenMode },
+    actions: { handleLogout },
   } = AppManager(props);
 
   return (
@@ -29,20 +33,27 @@ const App = (props) => {
       <Normalize />
       <GlobalStyle />
 
-      {!isFullScreenMode && <Header />}
+      {!isFullScreenMode && (
+        <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      )}
 
       <BodyWrapper isFullScreenMode={isFullScreenMode}>
         <Switch>
-          <Route
+          <PublicRoute
             exact
             path={RouterRoutes.authentication}
             component={Authentication}
           />
 
-          <Route exact path={RouterRoutes.home} component={Home} />
-          <Route exact path={RouterRoutes.about} component={About} />
+          <PublicRoute exact path={RouterRoutes.home} component={Home} />
+          <PublicRoute exact path={RouterRoutes.about} component={About} />
 
-          <Route path={RouterRoutes.notFound} component={NotFound} />
+          <PrivateRoute
+            exact
+            path={PrivateRoutes.profile}
+            component={Profile}
+          />
+          <PublicRoute path={RouterRoutes.notFound} component={NotFound} />
         </Switch>
       </BodyWrapper>
 

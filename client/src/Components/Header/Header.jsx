@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import { PublicRoutes } from "utils/routes";
+import { PrivateRoutes, PublicRoutes } from "utils/routes";
 
 import { Button, CatchMeOnSocial } from "Components";
 import LOGO from "Images/dephion_logo_s.png";
@@ -16,12 +16,17 @@ import {
   Authenticate,
 } from "./styles";
 
-const Header = ({ history }) => {
+const Header = ({ history, isLoggedIn, handleLogout }) => {
   const handleNavigateToAuth = useCallback(
     (e) => {
       const { type } = e.currentTarget.dataset;
       history.push(`${PublicRoutes.auth}?type=${type.toLowerCase()}`);
     },
+    [history]
+  );
+
+  const handleNavigateToProfile = useCallback(
+    () => history.push(PrivateRoutes.profile),
     [history]
   );
 
@@ -42,16 +47,29 @@ const Header = ({ history }) => {
           <NavLink to={PublicRoutes.about}>about</NavLink>
         </Menus>
         <Authenticate>
-          <Button
-            label="Login"
-            data-type="LOGIN"
-            onClick={handleNavigateToAuth}
-          />
-          <Button
-            label="Register"
-            data-type="REGISTER"
-            onClick={handleNavigateToAuth}
-          />
+          {isLoggedIn ? (
+            <>
+              <Button label="Profile" onClick={handleNavigateToProfile} />
+              <Button
+                label="Logout"
+                data-type="LOGOUT"
+                onClick={handleLogout}
+              />
+            </>
+          ) : (
+            <>
+              <Button
+                label="Login"
+                data-type="LOGIN"
+                onClick={handleNavigateToAuth}
+              />
+              <Button
+                label="Register"
+                data-type="REGISTER"
+                onClick={handleNavigateToAuth}
+              />
+            </>
+          )}
         </Authenticate>
       </MenuSection>
     </HeaderWrapper>

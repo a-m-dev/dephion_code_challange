@@ -79,5 +79,17 @@ export const Authenticate = styled.div`
 
   & button {
     margin-left: 1rem;
+
+    &[data-type="LOGOUT"] {
+      border-color: var(--bright-red);
+
+      & span {
+        color: var(--bright-red);
+      }
+
+      &:hover {
+        background-color: var(--bright-red);
+      }
+    }
   }
 `;

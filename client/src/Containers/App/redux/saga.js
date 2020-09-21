@@ -45,7 +45,10 @@ function* postLoginWorker({ payload: { email, password } }) {
     loading: (loadingStatus) => loadingAction(loadingStatus),
     success: [
       () => push(PublicRoutes.home),
-      ({ code, message, data }) => updateUserDataAction(data),
+      ({ code, message, data }) => {
+        localStorage.setItem("authToken", data.token);
+        return updateUserDataAction(data);
+      },
     ],
     failure: (error) => {
       toast.error(error.message);

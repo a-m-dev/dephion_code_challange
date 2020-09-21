@@ -1,3 +1,5 @@
-const PrivateRoutes = {};
+const PrivateRoutes = {
+  profile: "/profile",
+};
 
 export default PrivateRoutes;
