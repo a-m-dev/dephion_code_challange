@@ -16,6 +16,7 @@ const apiEndpoints = {
 
   // category
   category: {
+    getCategories: () => `${baseURL}/category/getCategoryList`,
     getTopCategories: () => `${baseURL}/category/getTopCategories`,
   },
 

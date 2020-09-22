@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from "react";
+import { useEffect, useMemo, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { useInjectSaga } from "utils/injectSaga";
 import { useInjectReducer } from "utils/injectReducer";
@@ -22,6 +22,14 @@ const AppManager = ({ location }) => {
   const { userData, authData } = useSelector(
     (state) => state.GlobalData || initialState
   );
+
+  const {
+    location: { pathname },
+  } = useSelector((state) => state.router);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const isLoggedIn = useMemo(() => {
     return authData && authData.token;

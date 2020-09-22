@@ -1,6 +1,6 @@
 const RouterRoutes = {
   home: "/",
-  about: "/about",
+  categories: "/categories",
 
   authentication: "/auth",
 

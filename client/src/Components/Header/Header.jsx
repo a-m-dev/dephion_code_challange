@@ -44,7 +44,7 @@ const Header = ({ history, isLoggedIn, handleLogout }) => {
       <MenuSection>
         <Menus>
           <NavLink to={PublicRoutes.home}>Home</NavLink>
-          <NavLink to={PublicRoutes.about}>about</NavLink>
+          <NavLink to={PublicRoutes.categories}>Categories</NavLink>
         </Menus>
         <Authenticate>
           {isLoggedIn ? (

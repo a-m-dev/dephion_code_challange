@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import { PublicRoute, PrivateRoute } from "./components/Router";
 
 import Home from "Containers/Home";
-import About from "Containers/About";
+import Categories from "Containers/Categories";
 import Authentication from "Containers/Authentication";
 import Profile from "Containers/Profile";
 import NotFound from "Containers/NotFound";
@@ -46,7 +46,11 @@ const App = (props) => {
           />
 
           <PublicRoute exact path={RouterRoutes.home} component={Home} />
-          <PublicRoute exact path={RouterRoutes.about} component={About} />
+          <PublicRoute
+            exact
+            path={RouterRoutes.categories}
+            component={Categories}
+          />
 
           <PrivateRoute
             exact
