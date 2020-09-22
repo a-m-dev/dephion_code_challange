@@ -1,5 +1,5 @@
-export const ERROR = "TEST/ERROR";
-export const LOADING = "TEST/LOADING";
+export const ERROR = "DEPHION/ERROR";
+export const LOADING = "DEPHION/LOADING";
 
 // Auth
 export const POST_LOGIN = "DEPHION/POST_LOGIN";

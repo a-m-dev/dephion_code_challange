@@ -1,4 +1,4 @@
-import { all, put, takeLatest } from "redux-saga/effects";
+import { all, takeLatest } from "redux-saga/effects";
 import requestCall from "utils/redux/requestCall";
 import apiEndpoints from "utils/api/apiEndpoints";
 import { RequestMethods } from "Constants";

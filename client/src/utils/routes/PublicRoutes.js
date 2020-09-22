@@ -3,6 +3,8 @@ const PublicRoutes = {
 
   home: "/",
   about: "/about",
+  categories: "/categories",
+  category: (catId) => `/category/${catId}`,
 
   footer: {
     faq: "/faq",

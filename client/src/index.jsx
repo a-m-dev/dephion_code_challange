@@ -10,6 +10,7 @@ import { history } from "utils/history";
 import * as serviceWorker from "./serviceWorker";
 
 import "./font-icon.css";
+import "./react-id-swiper.css";
 
 const initialState = {};
 const { store, persistor } = configureStore(initialState);

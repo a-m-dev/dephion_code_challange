@@ -1,6 +1,6 @@
 // import { toUrlParams } from "./toUrlParams";
 
-const baseURL = "http://localhost:4010/api/v1.0";
+export const baseURL = "http://localhost:4010/api/v1.0";
 
 const apiEndpoints = {
   // auth
@@ -15,7 +15,9 @@ const apiEndpoints = {
   },
 
   // category
-  category: {},
+  category: {
+    getTopCategories: () => `${baseURL}/category/getTopCategories`,
+  },
 
   // recipe
   recipe: {},

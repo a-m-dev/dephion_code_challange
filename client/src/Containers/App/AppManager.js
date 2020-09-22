@@ -11,11 +11,11 @@ import initialState from "./redux/initialState";
 
 import { resetUserDataAction } from "./redux/actions";
 
-const GlobalDataKetOnRedux = "GlobalData";
+const GlobalDataKeyOnRedux = "GlobalData";
 
 const AppManager = ({ location }) => {
-  useInjectReducer({ key: GlobalDataKetOnRedux, reducer: GlobalReducer });
-  useInjectSaga({ key: GlobalDataKetOnRedux, saga: GlobalSaga });
+  useInjectReducer({ key: GlobalDataKeyOnRedux, reducer: GlobalReducer });
+  useInjectSaga({ key: GlobalDataKeyOnRedux, saga: GlobalSaga });
 
   const [resetUserData] = useBindDispatch([resetUserDataAction]);
 
@@ -38,7 +38,7 @@ const AppManager = ({ location }) => {
   const handleLogout = useCallback(() => {
     localStorage.removeItem("authToken");
     resetUserData();
-  }, []);
+  }, [resetUserData]);
 
   return {
     data: {
