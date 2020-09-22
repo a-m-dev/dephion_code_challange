@@ -20,6 +20,10 @@ CategoryRouter.route("/createCategory").post(
   CategoryController.createCategory
 );
 
+CategoryRouter.route("/getCategoryById/:categoryId").get(
+  CategoryController.getCategoryById
+);
+
 CategoryRouter.route("/getCategoryList").get(
   CategoryController.getCategoryList
 );

@@ -88,6 +88,39 @@ CategoryController.createCategory = async (req, res, next) => {
 };
 
 /**
+ * GET CATEGORY
+ */
+CategoryController.getCategoryById = async (req, res, next) => {
+  const { categoryId } = req.params;
+
+  try {
+    let foundedCategory = await CategoryModel.findOne({
+      _id: categoryId,
+    }).populate("creator", userPropMini);
+
+    foundedCategory = foundedCategory && foundedCategory.toJSON();
+
+    return res.status(200).json(
+      ResponseGenerator.success({
+        code: 200,
+        message: "Category is ready",
+        result: {
+          category: foundedCategory,
+        },
+      })
+    );
+  } catch (error) {
+    return res.status(500).json(
+      ResponseGenerator.failure({
+        code: 500,
+        reason: RequestFailureReasons.INTERNAL_SERVER_ERROR,
+        message: "Some thing wrong happened",
+      })
+    );
+  }
+};
+
+/**
  * get Category list
  */
 CategoryController.getCategoryList = async (req, res, next) => {

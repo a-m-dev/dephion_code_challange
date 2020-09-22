@@ -8,7 +8,10 @@ import { useBindDispatch } from "utils/redux/useBindDispatch";
 import initialState from "./redux/initialState";
 import RecipeListByCategorySaga from "./redux/saga";
 import RecipeListByCategoryReducer from "./redux/reducer";
-import { getRecipeListByCategoryAction } from "./redux/actions";
+import {
+  getRecipeListByCategoryAction,
+  resetRecipeListByCategoryAction,
+} from "./redux/actions";
 
 const SelectedCategoryRecipesKeyOnRedux = "SelectedCategoryRecipes";
 
@@ -22,8 +25,9 @@ const SelectedCategoryRecipesManager = ({ selectedCategory }) => {
     saga: RecipeListByCategorySaga,
   });
 
-  const [getRecipeListByCategory] = useBindDispatch([
+  const [getRecipeListByCategory, resetRecipeListByCategory] = useBindDispatch([
     getRecipeListByCategoryAction,
+    resetRecipeListByCategoryAction,
   ]);
 
   const { loading, error, recipesByCategory } = useSelector(
@@ -32,9 +36,12 @@ const SelectedCategoryRecipesManager = ({ selectedCategory }) => {
 
   useEffect(() => {
     if (selectedCategory) {
-      // console.log({ selectedCategory });
       getRecipeListByCategory({ categoryId: selectedCategory });
     }
+
+    return () => {
+      resetRecipeListByCategory();
+    };
   }, [selectedCategory]);
 
   return {

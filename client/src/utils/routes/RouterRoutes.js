@@ -1,6 +1,7 @@
 const RouterRoutes = {
   home: "/",
   categories: "/categories",
+  category: "/category/:categoryId",
 
   authentication: "/auth",
 

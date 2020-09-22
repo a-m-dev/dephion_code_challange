@@ -1,7 +1,6 @@
 import React, { useMemo, useCallback } from "react";
 import { getImage } from "utils/getImage";
 import { withRouter } from "react-router-dom";
-import { PublicRoutes } from "utils/routes";
 import {
   CategoryCardWrapper,
   CoverImg,
@@ -22,13 +21,11 @@ const CategoryCard = ({
   recipesCount,
   creator,
   selectedCategoryId,
-  isClickable,
-  history,
 }) => {
   const MiscData = useMemo(() => {
     return [
-      { id: 1, icon: "icon-group", label: followers },
-      { id: 2, icon: "icon-newspaper", label: recipesCount },
+      { id: 1, icon: "icon-group", label: `${followers} followers` },
+      { id: 2, icon: "icon-newspaper", label: `${recipesCount} recipes` },
       {
         id: 3,
         icon: "icon-newspaper",
@@ -37,20 +34,10 @@ const CategoryCard = ({
     ];
   }, [followers, recipesCount, creator]);
 
-  const handleItemClick = useCallback(() => {
-    if (isClickable) {
-      history.push(PublicRoutes.category(_id));
-    }
-  }, [_id, history, isClickable]);
-
   return (
-    <CategoryCardWrapper
-      onClick={handleItemClick}
-      isSelected={selectedCategoryId === _id}
-    >
+    <CategoryCardWrapper>
       <CoverImg src={getImage(cover)} alt="category cover" />
-      <Dim data-type="dim" />
-      <Details data-type="details">
+      <Details>
         <Heading>{name}</Heading>
         <Descripbtion>{description}</Descripbtion>
         <Misc>
@@ -66,4 +53,4 @@ const CategoryCard = ({
   );
 };
 
-export default withRouter(CategoryCard);
+export default CategoryCard;

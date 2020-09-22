@@ -9,6 +9,7 @@ import { ToastContainer } from "react-toastify";
 import { PublicRoute, PrivateRoute } from "./components/Router";
 
 import Home from "Containers/Home";
+import Category from "Containers/Category";
 import Categories from "Containers/Categories";
 import Authentication from "Containers/Authentication";
 import Profile from "Containers/Profile";
@@ -50,6 +51,11 @@ const App = (props) => {
             exact
             path={RouterRoutes.categories}
             component={Categories}
+          />
+          <PublicRoute
+            exact
+            path={RouterRoutes.category}
+            component={Category}
           />
 
           <PrivateRoute

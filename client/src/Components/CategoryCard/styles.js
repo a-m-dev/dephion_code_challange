@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CategoryCardWrapper = styled.article`
   width: 100%;

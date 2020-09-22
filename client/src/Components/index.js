@@ -10,3 +10,4 @@ export { default as Loading } from "./Loading";
 
 export { default as RecipeCard } from "./RecipeCard";
 export { default as CategoryCard } from "./CategoryCard";
+export { default as CategoryHero } from "./CategoryHero";
