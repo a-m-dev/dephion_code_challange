@@ -1,12 +1,36 @@
 import React from "react";
-import { SelectedCategoryRecipesWrapper, Heading, Label } from "./styles";
 
-const SelectedCategoryRecipes = () => {
+import { RecipeCard } from "Components";
+import SelectedCategoryRecipesManager from "./SelectedCategoryRecipesManager";
+
+import {
+  SelectedCategoryRecipesWrapper,
+  Heading,
+  Label,
+  RecipesWrapper,
+} from "./styles";
+
+const SelectedCategoryRecipes = (props) => {
+  const {
+    data: { loading, recipesByCategory },
+  } = SelectedCategoryRecipesManager(props);
+
   return (
     <SelectedCategoryRecipesWrapper>
       <Heading>
-        <Label>Selected Category Recipes</Label>
+        <Label>Category Recipes ({`${recipesByCategory.length} found`})</Label>
       </Heading>
+      {loading && <h1>Loading...</h1>}
+      {!loading && recipesByCategory.length === 0 && (
+        <span>This Category does not have recipe</span>
+      )}
+      {!loading && (
+        <RecipesWrapper>
+          {recipesByCategory.map((recipe) => (
+            <RecipeCard key={recipe._id} {...recipe} />
+          ))}
+        </RecipesWrapper>
+      )}
     </SelectedCategoryRecipesWrapper>
   );
 };

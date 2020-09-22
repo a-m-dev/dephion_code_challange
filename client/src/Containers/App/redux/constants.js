@@ -1,5 +1,5 @@
-export const ERROR = "DEPHION/ERROR";
-export const LOADING = "DEPHION/LOADING";
+export const ERROR = "DEPHION/GLOBAL_DATA_ERROR";
+export const LOADING = "DEPHION/GLOBAL_DATA_LOADING";
 
 // Auth
 export const POST_LOGIN = "DEPHION/POST_LOGIN";

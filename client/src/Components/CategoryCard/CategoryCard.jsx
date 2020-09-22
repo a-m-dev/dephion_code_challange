@@ -20,6 +20,7 @@ const CategoryCard = ({
   followers,
   recipesCount,
   creator,
+  selectedCategoryId,
 }) => {
   const MiscData = useMemo(() => {
     return [
@@ -34,7 +35,7 @@ const CategoryCard = ({
   }, []);
 
   return (
-    <CategoryCardWrapper to={PublicRoutes.category(_id)}>
+    <CategoryCardWrapper isSelected={selectedCategoryId === _id}>
       <CoverImg src={getImage(cover)} alt="category cover" />
       <Dim data-type="dim" />
       <Details data-type="details">

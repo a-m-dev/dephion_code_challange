@@ -20,7 +20,10 @@ const apiEndpoints = {
   },
 
   // recipe
-  recipe: {},
+  recipe: {
+    getRecipeListByCategory: (catId) =>
+      `${baseURL}/recipe/getRecipeByCategory/${catId}`,
+  },
 };
 
 export default apiEndpoints;

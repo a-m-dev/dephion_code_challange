@@ -1,17 +1,19 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-export const CategoryCardWrapper = styled(NavLink)`
+export const CategoryCardWrapper = styled.article`
   width: 100%;
   height: 300px;
   border-radius: 2rem;
   padding: 1.25rem;
-  background-color: var(--light-gray);
+  background-color: var(--primary-gray);
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  border: ${(props) =>
+    props.isSelected ? "5px solid var(--bright-red)" : "5px solid transparent"};
 
   &:hover {
     & div[data-type="dim"] {
@@ -43,7 +45,7 @@ export const CategoryCardWrapper = styled(NavLink)`
 
 export const CoverImg = styled.img`
   position: absolute;
-  height: 120%;
+  height: 125%;
   transform: scale(1);
   transition: transform 1.5s ease-out;
 `;

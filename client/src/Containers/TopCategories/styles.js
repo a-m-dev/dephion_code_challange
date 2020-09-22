@@ -30,7 +30,7 @@ export const More = styled(NavLink)`
 export const Categories = styled.section`
   width: 100%;
   margin-top: 1rem;
-  min-height: 400px;
+  min-height: 350px;
 `;
 
 export const CategoryCardItemHolder = styled.article`

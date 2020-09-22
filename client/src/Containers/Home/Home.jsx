@@ -8,13 +8,19 @@ import HomeManager from "./HomeManager";
 import { HomeWrapper } from "./styles";
 
 const Home = () => {
-  const { data } = HomeManager();
+  const {
+    data: { selectedCategory },
+    actions: { handleSelectedCategory },
+  } = HomeManager();
 
   return (
     <HomeWrapper>
       <Hero />
-      <TopCategories />
-      <SelectedCategoryRecipes />
+      <TopCategories
+        selectedCategory={selectedCategory}
+        handleSelectedCategory={handleSelectedCategory}
+      />
+      <SelectedCategoryRecipes selectedCategory={selectedCategory} />
     </HomeWrapper>
   );
 };

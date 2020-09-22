@@ -13,10 +13,10 @@ import {
   CategoryCardItemHolder,
 } from "./styles";
 
-const TopCategories = () => {
+const TopCategories = ({ handleSelectedCategory, selectedCategory }) => {
   const {
-    data: { loading, error, categories, swiperConfig },
-  } = TopCategoriesManager();
+    data: { loading, categories, swiperConfig },
+  } = TopCategoriesManager({ handleSelectedCategory });
 
   return (
     <TopCategoriesWrapper>
@@ -29,13 +29,17 @@ const TopCategories = () => {
         <Categories>
           <Swiper {...swiperConfig}>
             {categories &&
-              categories.map((category) => {
-                return (
-                  <CategoryCardItemHolder>
-                    <CategoryCard {...category} />
-                  </CategoryCardItemHolder>
-                );
-              })}
+              categories.map((category) => (
+                <CategoryCardItemHolder
+                  key={category._id}
+                  onClick={() => handleSelectedCategory(category._id)}
+                >
+                  <CategoryCard
+                    {...category}
+                    selectedCategoryId={selectedCategory}
+                  />
+                </CategoryCardItemHolder>
+              ))}
           </Swiper>
         </Categories>
       )}

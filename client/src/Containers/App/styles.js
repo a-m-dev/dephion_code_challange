@@ -10,5 +10,5 @@ export const BodyWrapper = styled.main`
     props.isFullScreenMode ? "0" : "calc(120px + 2rem)"};
   padding-bottom: ${(props) => (props.isFullScreenMode ? "0" : "2rem")};
   margin: 0 auto;
-  overflow: scroll;
+  /* overflow: scroll; */
 `;

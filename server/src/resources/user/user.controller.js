@@ -129,7 +129,7 @@ UserController.register = async (req, res, next) => {
             name,
             email,
             password: hash,
-            avatar: "/s/images/avatar.png",
+            avatar: "s/images/avatar.png",
             recipes: [],
             favorites: [],
             followingCategories: [],

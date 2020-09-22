@@ -128,7 +128,9 @@ RecipeController.getRecipeByCategory = async (req, res, next) => {
     } else {
       let foundedRecipes = await RecipeModel.find({
         category: foundedCategory._id,
-      });
+      })
+        .populate("creator", userPropMini)
+        .populate("category", categoryPropGeneral);
 
       return res.status(200).json(
         ResponseGenerator.success({

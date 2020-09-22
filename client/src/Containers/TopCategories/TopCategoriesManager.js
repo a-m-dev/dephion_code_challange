@@ -12,12 +12,28 @@ import { getTopCategoriesAction } from "./redux/actions";
 
 const TopCategoriesKeyOnRedux = "TopCategories";
 
-const TopCategoriesManager = () => {
+const TopCategoriesManager = ({ handleSelectedCategory }) => {
   useInjectReducer({
     key: TopCategoriesKeyOnRedux,
     reducer: TopCategoriesReducer,
   });
   useInjectSaga({ key: TopCategoriesKeyOnRedux, saga: TopCategoriesSaga });
+
+  const [getTopCategories] = useBindDispatch([getTopCategoriesAction]);
+
+  const { loading, error, categories } = useSelector(
+    (state) => state[TopCategoriesKeyOnRedux] || initialState
+  );
+
+  useEffect(() => {
+    getTopCategories();
+  }, []);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      handleSelectedCategory(categories[0]._id);
+    }
+  }, [categories]);
 
   const swiperConfig = useMemo(() => {
     return {
@@ -46,16 +62,6 @@ const TopCategoriesManager = () => {
         },
       },
     };
-  }, []);
-
-  const [getTopCategories] = useBindDispatch([getTopCategoriesAction]);
-
-  const { loading, error, categories } = useSelector(
-    (state) => state[TopCategoriesKeyOnRedux] || initialState
-  );
-
-  useEffect(() => {
-    getTopCategories();
   }, []);
 
   return {

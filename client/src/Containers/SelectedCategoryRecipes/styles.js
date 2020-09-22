@@ -27,3 +27,9 @@ export const More = styled(NavLink)`
     text-decoration: underline;
   }
 `;
+
+export const RecipesWrapper = styled.div`
+  width: 100%;
+  min-height: 200px;
+  padding: 2rem 0rem;
+`;
