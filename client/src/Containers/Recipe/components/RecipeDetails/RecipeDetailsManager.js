@@ -1,9 +1,11 @@
-import { useMemo } from "react";
+import { useMemo, useCallback } from "react";
 import { useRecipeContext } from "Containers/Recipe/context";
+import { PublicRoutes } from "utils/routes";
 
-const RecipeDetailsManager = () => {
+const RecipeDetailsManager = ({ match, history }) => {
   const {
-    data: { recipe },
+    data: { recipe, isUserOwnsRecipe },
+    actions: { removeRecipe },
   } = useRecipeContext();
 
   const casualRowData = useMemo(() => {
@@ -18,7 +20,19 @@ const RecipeDetailsManager = () => {
     ];
   }, [recipe]);
 
-  return { data: { recipe, casualRowData } };
+  const handleEditRecipe = useCallback(() => {
+    const { recipeId } = match.params;
+    history.push(PublicRoutes.editRecipe(recipeId));
+  }, [match, history]);
+
+  const handleRemoveRecipe = useCallback(() => {
+    removeRecipe({ recipeId: recipe._id });
+  }, [recipe]);
+
+  return {
+    data: { recipe, casualRowData, isUserOwnsRecipe },
+    actions: { handleEditRecipe, handleRemoveRecipe },
+  };
 };
 
 export default RecipeDetailsManager;

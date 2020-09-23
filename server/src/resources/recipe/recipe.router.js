@@ -48,7 +48,6 @@ RecipeRouter.route("/favoriteRecipe").put(
 );
 RecipeRouter.route("/shareRecipe").put(
   dataValidator(recipeIdValidatorSchema, ValidatorParserTypes.BODY),
-  authenticateToken,
   RecipeController.shareRecipe
 );
 

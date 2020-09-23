@@ -27,6 +27,8 @@ const apiEndpoints = {
     getRecipeListByCategory: (catId) =>
       `${baseURL}/recipe/getRecipeByCategory/${catId}`,
     favoriteRecipe: () => `${baseURL}/recipe/favoriteRecipe`,
+    shareRecipe: () => `${baseURL}/recipe/shareRecipe`,
+    removeRecipe: (rcpId) => `${baseURL}/recipe/deleteRecipe/${rcpId}`,
   },
 };
 

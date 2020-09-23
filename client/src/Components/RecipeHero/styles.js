@@ -79,6 +79,7 @@ export const CoverWrapper = styled.div`
   border-radius: 1rem;
   overflow: hidden;
   margin-right: 1.5rem;
+  background-color: var(--white);
 `;
 
 export const Cover = styled.img`

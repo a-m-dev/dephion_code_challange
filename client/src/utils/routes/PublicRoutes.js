@@ -6,6 +6,7 @@ const PublicRoutes = {
   category: (catId) => `/category/${catId}`,
 
   recipe: (rcpId) => `/recipe/${rcpId}`,
+  editRecipe: (rcpId) => `/recipe/${rcpId}/edit`,
 
   footer: {
     faq: "/faq",

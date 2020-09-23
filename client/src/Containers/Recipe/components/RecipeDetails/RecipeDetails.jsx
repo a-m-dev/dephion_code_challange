@@ -1,6 +1,8 @@
 import React from "react";
 import RecipeDetailsManager from "./RecipeDetailsManager";
+import { withRouter } from "react-router-dom";
 import { CrudList } from "Components";
+import { Button } from "Components";
 
 import {
   RecipeDetail,
@@ -8,16 +10,24 @@ import {
   RecipeDetailRow,
   Ingredients,
   PreparationSteps,
+  RecipeUserActions,
 } from "./styles";
 
-const RecipeDetails = () => {
+const RecipeDetails = (props) => {
   const {
-    data: { recipe, casualRowData },
-  } = RecipeDetailsManager();
+    data: { recipe, casualRowData, isUserOwnsRecipe },
+    actions: { handleEditRecipe, handleRemoveRecipe },
+  } = RecipeDetailsManager(props);
 
   return (
     <RecipeDetail>
       <SectionLabel>Details</SectionLabel>
+      {isUserOwnsRecipe && (
+        <RecipeUserActions>
+          <Button label="Edit" onClick={handleEditRecipe} />
+          <Button label="Remove" onClick={handleRemoveRecipe} />
+        </RecipeUserActions>
+      )}
 
       {casualRowData.map(({ id, label, text }) => (
         <RecipeDetailRow key={id}>
@@ -43,4 +53,4 @@ const RecipeDetails = () => {
   );
 };
 
-export default RecipeDetails;
+export default withRouter(RecipeDetails);

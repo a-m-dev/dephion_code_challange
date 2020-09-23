@@ -12,7 +12,12 @@ import initialState from "./redux/initialState";
 import initialGlobalData from "Containers/App/redux/initialState";
 import RecipeSaga from "./redux/saga";
 import RecipeReducer from "./redux/reducer";
-import { getRecipeAction, favoriteRecipeAction } from "./redux/actions";
+import {
+  getRecipeAction,
+  favoriteRecipeAction,
+  shareRecipeAction,
+  removeRecipeAction,
+} from "./redux/actions";
 
 const RecipeKeyOnRedux = "Recipe";
 
@@ -29,9 +34,16 @@ const RecipeManager = ({ match }) => {
 
   const { recipeId } = match.params;
 
-  const [getRecipe, favoriteRecipe] = useBindDispatch([
+  const [
+    getRecipe,
+    favoriteRecipe,
+    shareRecipe,
+    removeRecipe,
+  ] = useBindDispatch([
     getRecipeAction,
     favoriteRecipeAction,
+    shareRecipeAction,
+    removeRecipeAction,
   ]);
 
   const { loading, error, recipe } = useSelector(
@@ -54,9 +66,11 @@ const RecipeManager = ({ match }) => {
     }
   }, [recipe, isLoggedIn]);
 
-  const handleShare = useCallback(() => {
-    console.log("handle share");
-  }, []);
+  const handleShareRecipe = useCallback(() => {
+    shareRecipe({ recipeId: recipe._id });
+    const text = `Hi there, I would love to share this recipe with you: ${window.location.href} ,Best!`;
+    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+  }, [recipe]);
 
   const handleBookmark = useCallback(() => {
     console.log(
@@ -79,14 +93,14 @@ const RecipeManager = ({ match }) => {
         type: "item",
         icon: isUserLikedRecipe ? "icon-heart" : "icon-heart-empty",
         handler: handleFavoriteRecipe,
-        label: `${recipe.favorites} likes`,
+        label: `${recipe?.favorites} likes`,
       },
       {
         id: 2,
         type: "item",
         icon: "icon-share",
-        handler: handleShare,
-        label: `${recipe.shares} shares`,
+        handler: handleShareRecipe,
+        label: `${recipe?.shares} shares`,
       },
       { id: 3, type: "misc" },
       {
@@ -97,13 +111,7 @@ const RecipeManager = ({ match }) => {
         label: "",
       },
     ];
-  }, [
-    recipe,
-    handleFavoriteRecipe,
-    handleBookmark,
-    handleShare,
-    isUserLikedRecipe,
-  ]);
+  }, [recipe, handleFavoriteRecipe, handleShareRecipe, isUserLikedRecipe]);
 
   return {
     data: {
@@ -115,7 +123,7 @@ const RecipeManager = ({ match }) => {
       isUserLikedRecipe,
       isUserOwnsRecipe,
     },
-    actions: { handleFavoriteRecipe },
+    actions: { handleFavoriteRecipe, removeRecipe },
   };
 };
 

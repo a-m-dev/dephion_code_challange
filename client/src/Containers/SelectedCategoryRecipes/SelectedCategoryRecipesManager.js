@@ -45,7 +45,11 @@ const SelectedCategoryRecipesManager = ({ selectedCategory }) => {
   }, [selectedCategory]);
 
   return {
-    data: { loading, error, recipesByCategory },
+    data: {
+      loading,
+      error,
+      recipesByCategory: [...recipesByCategory].reverse(),
+    },
   };
 };
 

@@ -5,6 +5,8 @@ import {
   UPDATE_RECIPE,
   RESET_RECIPE,
   FAVORITE_RECIPE,
+  SHARE_RECIPE,
+  REMOVE_RECIPE,
 } from "./constants";
 
 export const loadingAction = (loadingStatus) => ({
@@ -31,5 +33,15 @@ export const resetRecipeAction = () => ({
 
 export const favoriteRecipeAction = (payload) => ({
   type: FAVORITE_RECIPE,
+  payload,
+});
+
+export const shareRecipeAction = (payload) => ({
+  type: SHARE_RECIPE,
+  payload,
+});
+
+export const removeRecipeAction = (payload) => ({
+  type: REMOVE_RECIPE,
   payload,
 });

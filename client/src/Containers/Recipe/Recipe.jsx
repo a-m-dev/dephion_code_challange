@@ -9,11 +9,12 @@ import { RecipeWrapper } from "./styles";
 const Recipe = (props) => {
   const {
     data,
+    actions,
     data: { loading, recipe },
   } = RecipeManager(props);
 
   return (
-    <RecipeContext.Provider value={{ data }}>
+    <RecipeContext.Provider value={{ data, actions }}>
       <RecipeWrapper>
         <RecipeHero {...recipe} />
         <RecipeActions />

@@ -10,7 +10,6 @@ export const RecipeActionsWrapper = styled.section`
   transform: translateY(-50%);
   padding: 0 0.5rem;
   font-size: 2rem;
-  color: var(--light-gray);
 `;
 
 export const ActionWrapper = styled.div`
@@ -18,10 +17,18 @@ export const ActionWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: var(--light-gray);
   flex-direction: column;
 
   & i {
     margin-bottom: 0.6rem;
+    color: var(--light-gray);
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: var(--median-gray);
+      cursor: pointer;
+    }
   }
 
   & span {

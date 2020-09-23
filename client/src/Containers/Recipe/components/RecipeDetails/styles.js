@@ -50,3 +50,43 @@ export const PreparationSteps = styled.div`
   width: 100%;
   padding: 1.5rem 1rem;
 `;
+
+export const RecipeUserActions = styled.div`
+  width: 300px;
+  height: 45px;
+  position: absolute;
+  top: -3rem;
+  margin: 0;
+  right: 2.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  & button {
+    margin-left: 1rem;
+
+    &:first-child {
+      border-color: var(--bright-green);
+
+      & span {
+        color: var(--bright-green);
+      }
+
+      &:hover {
+        background-color: var(--bright-green);
+      }
+    }
+
+    &:last-child {
+      border-color: var(--bright-red);
+
+      & span {
+        color: var(--bright-red);
+      }
+
+      &:hover {
+        background-color: var(--bright-red);
+      }
+    }
+  }
+`;
