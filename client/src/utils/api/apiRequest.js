@@ -3,8 +3,8 @@ import Axios from "axios";
 const axiosInstance = Axios.create({ timeout: 3000 });
 
 axiosInstance.interceptors.request.use(function (config) {
-  const token = localStorage.getItem("token");
-  if (token) config.headers["Authorization"] = token;
+  const token = localStorage.getItem("authToken");
+  if (token) config.headers["Authorization"] = `Bearer ${token}`;
 
   return config;
 });

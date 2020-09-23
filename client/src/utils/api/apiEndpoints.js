@@ -23,8 +23,10 @@ const apiEndpoints = {
 
   // recipe
   recipe: {
+    getRecipe: (rcpId) => `${baseURL}/recipe/getRecipe/${rcpId}`,
     getRecipeListByCategory: (catId) =>
       `${baseURL}/recipe/getRecipeByCategory/${catId}`,
+    favoriteRecipe: () => `${baseURL}/recipe/favoriteRecipe`,
   },
 };
 

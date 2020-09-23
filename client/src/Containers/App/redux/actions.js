@@ -6,6 +6,7 @@ import {
   POST_LOGIN,
   POST_REGISTER,
   UPDATE_USER_DATA,
+  UPDATE_USER_DATA_NOT_AUTH_INCLUDED,
   RESET_USER_DATA,
 } from "./constants";
 
@@ -24,6 +25,10 @@ export const loginAction = (payload) => ({ type: POST_LOGIN, payload });
 export const registerAction = (payload) => ({ type: POST_REGISTER, payload });
 export const updateUserDataAction = (payload) => ({
   type: UPDATE_USER_DATA,
+  payload,
+});
+export const updateUserDataNotAuthIncludedAction = (payload) => ({
+  type: UPDATE_USER_DATA_NOT_AUTH_INCLUDED,
   payload,
 });
 export const resetUserDataAction = () => ({

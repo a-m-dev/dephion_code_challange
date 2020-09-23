@@ -11,6 +11,7 @@ import { PublicRoute, PrivateRoute } from "./components/Router";
 import Home from "Containers/Home";
 import Category from "Containers/Category";
 import Categories from "Containers/Categories";
+import Recipe from "Containers/Recipe";
 import Authentication from "Containers/Authentication";
 import Profile from "Containers/Profile";
 import NotFound from "Containers/NotFound";
@@ -57,6 +58,7 @@ const App = (props) => {
             path={RouterRoutes.category}
             component={Category}
           />
+          <PublicRoute exact path={RouterRoutes.recipe} component={Recipe} />
 
           <PrivateRoute
             exact

@@ -3,6 +3,8 @@ const RouterRoutes = {
   categories: "/categories",
   category: "/category/:categoryId",
 
+  recipe: "/recipe/:recipeId",
+
   authentication: "/auth",
 
   notFound: "*",

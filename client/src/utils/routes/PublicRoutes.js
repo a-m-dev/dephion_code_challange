@@ -4,6 +4,7 @@ const PublicRoutes = {
   home: "/",
   categories: "/categories",
   category: (catId) => `/category/${catId}`,
+
   recipe: (rcpId) => `/recipe/${rcpId}`,
 
   footer: {

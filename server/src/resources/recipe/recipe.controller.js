@@ -514,6 +514,7 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
         { new: true }
       )
         .populate("category", categoryPropGeneral)
+        .populate("creator", userPropMini)
         .exec();
 
       return res.status(200).json(
@@ -541,6 +542,7 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
               favorites: updatedRecipe.favorites,
               shares: updatedRecipe.shares,
               category: updatedRecipe.category,
+              creator: updatedRecipe.creator,
             },
           },
         })
