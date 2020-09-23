@@ -28,6 +28,16 @@ export const Input = styled.input`
   &::placeholder {
     color: rgba(var(--gray), 0.2);
   }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
 
 export const InputLayout = styled.div`

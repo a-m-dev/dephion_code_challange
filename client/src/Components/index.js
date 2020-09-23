@@ -4,6 +4,8 @@ export { default as CatchMeOnSocial } from "./CatchMeOnSocial";
 
 export { default as Form } from "./Form";
 export { default as InputField } from "./InputField";
+export { default as FileUpload } from "./FileUpload";
+export { default as OptionField } from "./OptionField";
 
 export { default as Button } from "./Button";
 export { default as Loading } from "./Loading";

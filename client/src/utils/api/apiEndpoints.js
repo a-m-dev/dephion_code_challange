@@ -30,6 +30,8 @@ const apiEndpoints = {
     favoriteRecipe: () => `${baseURL}/recipe/favoriteRecipe`,
     shareRecipe: () => `${baseURL}/recipe/shareRecipe`,
     removeRecipe: (rcpId) => `${baseURL}/recipe/deleteRecipe/${rcpId}`,
+
+    createRecipe: () => `${baseURL}/recipe/createRecipe`,
   },
 };
 
