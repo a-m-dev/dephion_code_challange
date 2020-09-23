@@ -5,6 +5,9 @@ import {
   // auth
   POST_LOGIN,
   POST_REGISTER,
+
+  // User
+  GET_USER_DATA,
   UPDATE_USER_DATA,
   UPDATE_USER_DATA_NOT_AUTH_INCLUDED,
   RESET_USER_DATA,
@@ -23,6 +26,12 @@ export const errorAction = (error) => ({
 // Auth
 export const loginAction = (payload) => ({ type: POST_LOGIN, payload });
 export const registerAction = (payload) => ({ type: POST_REGISTER, payload });
+
+// User
+export const getUserDataAction = () => ({
+  type: GET_USER_DATA,
+});
+
 export const updateUserDataAction = (payload) => ({
   type: UPDATE_USER_DATA,
   payload,

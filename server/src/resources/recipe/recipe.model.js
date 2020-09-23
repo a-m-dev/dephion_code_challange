@@ -26,5 +26,14 @@ const recipeSchema = mongoose.Schema(
 
 module.exports = {
   Model: mongoose.model("Recipe", recipeSchema),
-  propGeneral: ["name", "cover", "numberOfServing"],
+  propGeneral: [
+    "name",
+    "cover",
+    "numberOfServing",
+    "cookingTime",
+    "ingredients",
+    "preparationSteps",
+    "favorites",
+    "shares",
+  ],
 };

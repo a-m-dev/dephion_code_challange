@@ -10,7 +10,9 @@ export { default as Loading } from "./Loading";
 
 export { default as RecipeCard } from "./RecipeCard";
 export { default as RecipeHero } from "./RecipeHero";
+export { default as RecipeList } from "./RecipesList";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as CategoryHero } from "./CategoryHero";
+export { default as CategoryList } from "./CategoryList";
 
 export { default as CrudList } from "./CrudList";

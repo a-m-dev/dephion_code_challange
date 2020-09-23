@@ -169,7 +169,7 @@ CategoryController.getCategoryList = async (req, res, next) => {
 CategoryController.getTopCategories = async (req, res, next) => {
   try {
     const getAllCategories = await CategoryModel.find()
-      .sort({ followers: 1 })
+      .sort({ recipesCount: -1 })
       .populate("creator", userPropMini)
       .limit(5)
       .exec();

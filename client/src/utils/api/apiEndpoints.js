@@ -11,6 +11,7 @@ const apiEndpoints = {
 
   // user
   user: {
+    getUserData: () => `${baseURL}/user/getUserData`,
     getUserList: () => `${baseURL}/user/getUserList`,
   },
 

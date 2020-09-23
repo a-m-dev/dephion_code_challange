@@ -12,6 +12,7 @@ import Home from "Containers/Home";
 import Category from "Containers/Category";
 import Categories from "Containers/Categories";
 import Recipe from "Containers/Recipe";
+import RecipeManagment from "Containers/RecipeManagment";
 import Authentication from "Containers/Authentication";
 import Profile from "Containers/Profile";
 import NotFound from "Containers/NotFound";
@@ -60,10 +61,11 @@ const App = (props) => {
           />
           <PublicRoute exact path={RouterRoutes.recipe} component={Recipe} />
 
+          <PrivateRoute exact path={RouterRoutes.profile} component={Profile} />
           <PrivateRoute
             exact
-            path={PrivateRoutes.profile}
-            component={Profile}
+            path={RouterRoutes.createRecipe}
+            component={RecipeManagment}
           />
           <PublicRoute path={RouterRoutes.notFound} component={NotFound} />
         </Switch>

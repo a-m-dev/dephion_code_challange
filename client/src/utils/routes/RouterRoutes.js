@@ -4,8 +4,11 @@ const RouterRoutes = {
   category: "/category/:categoryId",
 
   recipe: "/recipe/:recipeId",
+  createRecipe: "/create/recipe",
 
   authentication: "/auth",
+
+  profile: "/profile",
 
   notFound: "*",
 };

@@ -3,6 +3,8 @@ import {
   Model as UserModel,
   propGeneral as userPropGeneral,
 } from "./user.model";
+import { propGeneral as categoryPropGeneral } from "../category/category.model";
+import { propGeneral as recipePropGeneral } from "../recipe/recipe.model";
 import JWT from "jsonwebtoken";
 import ResponseGenerator from "../../utils/ResponseGenerator";
 import RequestFailureReasons from "../../constants/RequestFailureReasons";
@@ -17,7 +19,11 @@ UserController.login = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    let foundUser = await UserModel.findOne({ email }).exec();
+    let foundUser = await UserModel.findOne({ email })
+      .populate("recipes", recipePropGeneral)
+      .populate("favorites", recipePropGeneral)
+      .populate("followingCategories", categoryPropGeneral)
+      .exec();
 
     foundUser = foundUser && foundUser.toJSON();
 
@@ -242,7 +248,11 @@ UserController.getUserData = async (req, res, next) => {
   const userID = req.user.user_id;
 
   try {
-    const foundUser = await UserModel.findOne({ _id: userID }).exec();
+    const foundUser = await UserModel.findOne({ _id: userID })
+      .populate("recipes", recipePropGeneral)
+      .populate("favorites", recipePropGeneral)
+      .populate("followingCategories", categoryPropGeneral)
+      .exec();
 
     return res.status(200).json(
       ResponseGenerator.success({

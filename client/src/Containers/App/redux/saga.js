@@ -6,10 +6,11 @@ import { push } from "connected-react-router";
 import { toast } from "react-toastify";
 import { PublicRoutes } from "utils/routes";
 
-import { POST_REGISTER, POST_LOGIN } from "./constants";
+import { POST_REGISTER, POST_LOGIN, GET_USER_DATA } from "./constants";
 import {
   loadingAction,
   updateUserDataAction,
+  updateUserDataNotAuthIncludedAction,
 } from "Containers/App/redux/actions";
 
 function* postRegisterWorker({
@@ -63,7 +64,27 @@ function* postLoginWorker({ payload: { email, password } }) {
   yield requestCall({ url, method, actions, data });
 }
 
+function* getUserDataWorker() {
+  console.log(">>>> SAGA");
+  const url = apiEndpoints.user.getUserData();
+  const method = RequestMethods.GET;
+  const actions = {
+    loading: (loadingStatus) => loadingAction(loadingStatus),
+    success: ({ code, message, data }) => {
+      return updateUserDataNotAuthIncludedAction(data);
+    },
+    failure: (error) => {
+      toast.error(error.message);
+    },
+  };
+
+  yield requestCall({ url, method, actions });
+}
+
 export default function* GlobalSaga() {
-  yield all([takeLatest(POST_REGISTER, postRegisterWorker)]);
-  yield all([takeLatest(POST_LOGIN, postLoginWorker)]);
+  yield all([
+    takeLatest(POST_REGISTER, postRegisterWorker),
+    takeLatest(POST_LOGIN, postLoginWorker),
+    takeLatest(GET_USER_DATA, getUserDataWorker),
+  ]);
 }
