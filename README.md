@@ -14,7 +14,7 @@ Here is the picture of docker containers which are active:
 
 ## Thoughts on this project
 
-first of all before bigining the project, i decided to plan for it and takes me hours to figure out the whole structurea and finally i created this min map of my thoughts on this project which is avaliable at [here](https://coggle.it/diagram/X2JesTfdS29D6YhB/t/cookbook)
+first of all before bigining the project, i decided to plan for it and takes me hours to figure out the whole structurea and finally i created this min map of my thoughts on this project which is avaliable at [My Mind Map on This Project](https://coggle.it/diagram/X2JesTfdS29D6YhB/t/cookbook)
 
 this was really **important step** for me, because it directs me in my way of building the project!
 
