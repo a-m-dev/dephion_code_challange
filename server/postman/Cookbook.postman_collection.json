@@ -1,0 +1,872 @@
+{
+	"info": {
+		"_postman_id": "a781608e-edfb-470b-8fa8-b9aba9243996",
+		"name": "Cookbook",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v1.0",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "9e90e429-99a0-4500-9bf0-9ba1441737d2",
+										"exec": [
+											"const response = JSON.parse(responseBody);",
+											"const token = response.data.token;",
+											"pm.environment.set(\"token\", token);",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "email",
+											"value": "test2@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/user/login",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "name",
+											"value": "one",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "test1@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "repeatPassword",
+											"value": "1234",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/user/register",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"user",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserList",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/user/getUserList",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"user",
+										"getUserList"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getUserData",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/user/getUserData",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"user",
+										"getUserData"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateUserData",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "oneee",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "test1@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "repeatPassword",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/Users/macbook/Pictures/Auth.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/user/updateUserData",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"user",
+										"updateUserData"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "getCategoryList",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/category/getCategoryList",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"category",
+										"getCategoryList"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getCategoryById",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/category/getCategoryById/:categoryId",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"category",
+										"getCategoryById",
+										":categoryId"
+									],
+									"variable": [
+										{
+											"key": "categoryId",
+											"value": "5f69ce0b70bcce01fa9190ba"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getTopCategories",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/category/getTopCategories",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"category",
+										"getTopCategories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "searchCategoryList",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/category/searchCategoryList?q=tw",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"category",
+										"searchCategoryList"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "tw"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createCategory",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "One",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print.",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"type": "file",
+											"src": "/Users/macbook/Pictures/dataMicro logo.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/category/createCategory",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"category",
+										"createCategory"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "followCategory",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "categoryId",
+											"value": "5f65b47840cec25ae9f98560",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/category/followCategory",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"category",
+										"followCategory"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Recipe",
+					"item": [
+						{
+							"name": "getRecipe",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/getRecipe/:recipeId",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"getRecipe",
+										":recipeId"
+									],
+									"variable": [
+										{
+											"key": "recipeId",
+											"value": "5f663e183dbfb13fa0b237b1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getRecipeByCategory",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/getRecipeByCategory/:categoryId",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"getRecipeByCategory",
+										":categoryId"
+									],
+									"variable": [
+										{
+											"key": "categoryId",
+											"value": "5f670d30548f4464afa097f8"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getRecipeList",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/getRecipeList",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"getRecipeList"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "createRecipe",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "recipe Two",
+											"type": "text"
+										},
+										{
+											"key": "categoryId",
+											"value": "5f66d812b349e34548e14d56",
+											"type": "text"
+										},
+										{
+											"key": "cookingTime",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "numberOfServing",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "one",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "two",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "three",
+											"type": "text"
+										},
+										{
+											"key": "preparationSteps[]",
+											"value": "stepOne",
+											"type": "text"
+										},
+										{
+											"key": "preparationSteps[]",
+											"value": "step Two",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"type": "file",
+											"src": "/Users/macbook/Pictures/Auth.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/createRecipe",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"createRecipe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "favoriteRecipe",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "recipeId",
+											"value": "5f6619145ba7881c6e06d0ef",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/favoriteRecipe",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"favoriteRecipe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "shareRecipe",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "recipeId",
+											"value": "5f6619145ba7881c6e06d0ef",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/shareRecipe",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"shareRecipe"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "updateRecipe",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "recipe Onee",
+											"type": "text"
+										},
+										{
+											"key": "cookingTime",
+											"value": "31",
+											"type": "text"
+										},
+										{
+											"key": "numberOfServing",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "one",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "two",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "ingredients[]",
+											"value": "three",
+											"type": "text"
+										},
+										{
+											"key": "preparationSteps[]",
+											"value": "stepOne",
+											"type": "text"
+										},
+										{
+											"key": "preparationSteps[]",
+											"value": "step Two",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"type": "file",
+											"src": "/Users/macbook/Pictures/amdevcloud.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/updateRecipe/:recipeId",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"updateRecipe",
+										":recipeId"
+									],
+									"variable": [
+										{
+											"key": "recipeId",
+											"value": "5f6618cfc4cb511bd2ec0909"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "deleteRecipe",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer {{token}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "recipe Onee",
+											"type": "text"
+										},
+										{
+											"key": "cookingTime",
+											"value": "31",
+											"type": "text"
+										},
+										{
+											"key": "numberOfServing",
+											"value": "4",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "one",
+											"type": "text"
+										},
+										{
+											"key": "ingredients[]",
+											"value": "two",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "ingredients[]",
+											"value": "three",
+											"type": "text"
+										},
+										{
+											"key": "preparationSteps[]",
+											"value": "stepOne",
+											"type": "text"
+										},
+										{
+											"key": "preparationSteps[]",
+											"value": "step Two",
+											"type": "text"
+										},
+										{
+											"key": "cover",
+											"type": "file",
+											"src": "/Users/macbook/Pictures/amdevcloud.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/{{api-version}}/recipe/deleteRecipe/:recipeId",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"{{api-version}}",
+										"recipe",
+										"deleteRecipe",
+										":recipeId"
+									],
+									"variable": [
+										{
+											"key": "recipeId",
+											"value": "5f6618cfc4cb511bd2ec0909"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
