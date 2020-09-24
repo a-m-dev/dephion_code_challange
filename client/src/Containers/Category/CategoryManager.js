@@ -8,7 +8,11 @@ import { useBindDispatch } from "utils/redux/useBindDispatch";
 import initialState from "./redux/initialState";
 import CategorySaga from "./redux/saga";
 import CategoryReducer from "./redux/reducer";
-import { getCategoryAction, resetCategoryAction } from "./redux/actions";
+import {
+  getCategoryAction,
+  resetCategoryAction,
+  followCategoryAction,
+} from "./redux/actions";
 
 const CategoryKeyOnRedux = "Category";
 
@@ -21,9 +25,10 @@ const CategoryManager = ({ match }) => {
 
   const { categoryId } = match.params;
 
-  const [getCategory, resetCategory] = useBindDispatch([
+  const [getCategory, resetCategory, followCategory] = useBindDispatch([
     getCategoryAction,
     resetCategoryAction,
+    followCategoryAction,
   ]);
 
   const { loading, error, category } = useSelector(
@@ -32,11 +37,13 @@ const CategoryManager = ({ match }) => {
 
   useEffect(() => {
     getCategory({ categoryId });
-
     return () => resetCategory();
   }, []);
 
-  return { data: { loading, error, category, categoryId } };
+  return {
+    data: { loading, error, category, categoryId },
+    actions: { followCategory },
+  };
 };
 
 export default CategoryManager;

@@ -4,6 +4,7 @@ import {
   GET_CATEGORY,
   UPDATE_CATEGORY,
   RESET_CATEGORY,
+  FOLLOW_CATEGORY,
 } from "./constants";
 
 export const loadingAction = (loadingStatus) => ({
@@ -26,4 +27,9 @@ export const updateCategoryAction = (payload) => ({
 });
 export const resetCategoryAction = () => ({
   type: RESET_CATEGORY,
+});
+
+export const followCategoryAction = (payload) => ({
+  type: FOLLOW_CATEGORY,
+  payload,
 });

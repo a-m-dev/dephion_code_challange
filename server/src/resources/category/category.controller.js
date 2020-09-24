@@ -7,6 +7,7 @@ import {
   propGeneral as userPropGeneral,
   propMini as userPropMini,
 } from "../user/user.model";
+import { propGeneral as recipePropGeneral } from "../recipe/recipe.model";
 import ResponseGenerator from "../../utils/ResponseGenerator";
 import RequestFailureReasons from "../../constants/RequestFailureReasons";
 
@@ -284,7 +285,9 @@ CategoryController.followCategory = async (req, res, next) => {
       { _id: userId },
       { followingCategories: followingArr },
       { new: true }
-    );
+    )
+      .populate("recipes", recipePropGeneral)
+      .populate("favorites", recipePropGeneral);
 
     let updateCategory = await CategoryModel.findOneAndUpdate(
       { _id: categoryId },
@@ -302,6 +305,8 @@ CategoryController.followCategory = async (req, res, next) => {
             name: userData.name,
             email: userData.email,
             avatar: userData.avatar,
+            recipes: userData.recipes,
+            favorites: userData.favorites,
             followingCategories: userData.followingCategories,
           },
           categoryData: {

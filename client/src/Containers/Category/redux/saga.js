@@ -4,8 +4,9 @@ import apiEndpoints from "utils/api/apiEndpoints";
 import { RequestMethods } from "Constants";
 import { toast } from "react-toastify";
 
-import { GET_CATEGORY } from "./constants";
+import { GET_CATEGORY, FOLLOW_CATEGORY } from "./constants";
 import { loadingAction, errorAction, updateCategoryAction } from "./actions";
+import { updateUserDataNotAuthIncludedAction } from "Containers/App/redux/actions";
 
 function* getCategory({ payload: { categoryId } }) {
   const url = apiEndpoints.category.getCategory(categoryId);
@@ -22,6 +23,29 @@ function* getCategory({ payload: { categoryId } }) {
   yield requestCall({ url, method, actions });
 }
 
+function* followCategoryWorker({ payload: { categoryId } }) {
+  const url = apiEndpoints.category.followCategory();
+  const method = RequestMethods.PUT;
+  const actions = {
+    loading: (loadingStatus) => loadingAction(loadingStatus),
+    success: ({ code, message, data }) =>
+      updateUserDataNotAuthIncludedAction(data.userData),
+    failure: (error) => {
+      toast.error(error.message);
+      return errorAction(error);
+    },
+  };
+
+  const data = {
+    categoryId,
+  };
+
+  yield requestCall({ url, method, actions, data });
+}
+
 export default function* CategorySaga() {
-  yield all([takeLatest(GET_CATEGORY, getCategory)]);
+  yield all([
+    takeLatest(GET_CATEGORY, getCategory),
+    takeLatest(FOLLOW_CATEGORY, followCategoryWorker),
+  ]);
 }

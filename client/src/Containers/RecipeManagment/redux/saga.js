@@ -52,7 +52,6 @@ function* createRecipeWorker({
       ({ data }) => push(PublicRoutes.recipe(data.createdRecipe._id)),
       ({ code, message, data }) => {
         toast.success(message);
-        console.log(data);
         return updateUserDataNotAuthIncludedAction(data.updatedUser);
       },
     ],
@@ -131,7 +130,6 @@ function* updateRecipeItemWorker({
       ({ data }) => push(PublicRoutes.recipe(data._id)),
       ({ code, message, data }) => {
         toast.success(message);
-        console.log(data);
       },
     ],
     failure: (error) => {
