@@ -33,7 +33,7 @@ const UserInfo = () => {
       {
         id: 3,
         icon: "icon-tags",
-        label: `${userData?.followingCategories?.length} recipes`,
+        label: `${userData?.followingCategories?.length} Categories`,
       },
     ];
   }, [userData]);

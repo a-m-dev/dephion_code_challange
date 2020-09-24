@@ -9,31 +9,65 @@ import { useBindDispatch } from "utils/redux/useBindDispatch";
 import initialState from "./redux/initialState";
 import RecipeManagmentSaga from "./redux/saga";
 import RecipeManagmentReducer from "./redux/reducer";
-import { createCategoryAction, getCategoriesAction } from "./redux/actions";
+import {
+  createCategoryAction,
+  getCategoriesAction,
+  getRecipeAction,
+  resetRecipeAction,
+  updateRecipeItemAction,
+} from "./redux/actions";
 
 import { initialValues, validationSchema } from "./form";
+import { RouterRoutes } from "utils/routes";
 
 const RecipeManagmentKeyOnRedux = "RecipeManagment";
 
-const RecipeManagmentManager = () => {
+const RecipeManagmentManager = ({ match }) => {
   useInjectReducer({
     key: RecipeManagmentKeyOnRedux,
     reducer: RecipeManagmentReducer,
   });
   useInjectSaga({ key: RecipeManagmentKeyOnRedux, saga: RecipeManagmentSaga });
 
-  const [createCategory, getCategories] = useBindDispatch([
+  const { recipeId } = match.params;
+
+  const [
+    createCategory,
+    getCategories,
+    getRecipe,
+    resetRecipe,
+    updateRecipeItem,
+  ] = useBindDispatch([
     createCategoryAction,
     getCategoriesAction,
+    getRecipeAction,
+    resetRecipeAction,
+    updateRecipeItemAction,
   ]);
 
-  const { categoryLoading, categoryError, categories } = useSelector(
-    (state) => state[RecipeManagmentKeyOnRedux] || initialState
-  );
+  const {
+    categoryLoading,
+    categoryError,
+    recipeLoading,
+    recipe = {},
+    categories = [],
+  } = useSelector((state) => state[RecipeManagmentKeyOnRedux] || initialState);
+
+  const isEditMode = useMemo(() => {
+    const { path } = match;
+    return path === RouterRoutes.editRecipe;
+  }, []);
+
+  useEffect(() => {
+    return () => resetRecipe();
+  }, []);
 
   useEffect(() => {
     getCategories();
-  }, []);
+    if (isEditMode) {
+      getRecipe({ recipeId });
+    }
+  }, [isEditMode, recipeId]);
 
   const GridSectionInputs = useMemo(() => {
     return [
@@ -54,9 +88,10 @@ const RecipeManagmentManager = () => {
         Component: OptionField,
         props: {
           name: "categoryId",
-          label: "Category",
+          label: "Category, can't change in editmode! not in this version :)",
           dataset: categories,
           icon: "icon-tags",
+          disabled: isEditMode,
         },
       },
       {
@@ -89,7 +124,7 @@ const RecipeManagmentManager = () => {
         props: {
           name: "ingredients",
           label: "Ingredients",
-          dataset: [],
+          dataset: isEditMode ? recipe?.ingredients || [] : [],
           isEditMode: true,
         },
       },
@@ -99,23 +134,44 @@ const RecipeManagmentManager = () => {
         props: {
           name: "preparationSteps",
           label: "How to Prepare",
-          dataset: [],
+          dataset: isEditMode ? recipe?.preparationSteps || [] : [],
           isEditMode: true,
         },
       },
     ];
-  }, [categories]);
+  }, [categories, recipe, isEditMode]);
 
-  const handleFormSubmit = useCallback((args) => {
-    console.log("FORM SUBMITTED", args);
-    createCategory({ ...args });
-  }, []);
+  const refineRecipeAsInitialValue = useMemo(() => {
+    return {
+      name: recipe.name,
+      categoryId: recipe?.category?._id,
+      cookingTime: recipe.cookingTime,
+      numberOfServing: recipe.numberOfServing,
+      ingredients: recipe.ingredients,
+      preparationSteps: recipe.preparationSteps,
+    };
+  }, [recipe]);
+
+  const handleFormSubmit = useCallback(
+    (args) => {
+      if (isEditMode) updateRecipeItem({ ...recipe, ...args, recipeId });
+      else createCategory({ ...args });
+    },
+    [isEditMode, recipe, recipeId]
+  );
 
   return {
-    data: { categoryLoading, GridSectionInputs },
+    data: {
+      categoryLoading,
+      recipe,
+      recipeLoading,
+      GridSectionInputs,
+      isEditMode,
+    },
     formProps: {
-      initialValues,
+      initialValues: isEditMode ? refineRecipeAsInitialValue : initialValues,
       validationSchema,
+      enableReinitialize: true,
       onSubmit: handleFormSubmit,
     },
   };

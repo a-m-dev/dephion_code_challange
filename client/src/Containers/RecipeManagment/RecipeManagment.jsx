@@ -10,16 +10,24 @@ import {
   GridSection,
 } from "./styles";
 
-const RecipeManagment = () => {
+const RecipeManagment = (props) => {
   const {
-    data: { categoryLoading, GridSectionInputs },
+    data: {
+      categoryLoading,
+      recipe,
+      recipeLoading,
+      GridSectionInputs,
+      isEditMode,
+    },
     formProps,
-  } = RecipeManagmentManager();
+  } = RecipeManagmentManager(props);
 
   return (
     <RecipeManagmentWrapper>
       <Heading>
-        <Label>Create Recipe</Label>
+        <Label>
+          {isEditMode ? `Edit ${recipe.name || ""}` : "Create Recipe"}
+        </Label>
       </Heading>
 
       <FormBody>
@@ -34,8 +42,10 @@ const RecipeManagment = () => {
           <SubmittionArea>
             <Button
               type="submit"
-              label="Create Recipe"
-              loading={categoryLoading}
+              label={
+                isEditMode ? `Update ${recipe.name || ""}` : "Create Recipe"
+              }
+              loading={isEditMode ? recipeLoading : categoryLoading}
             />
           </SubmittionArea>
         </Form>

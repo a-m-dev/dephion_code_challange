@@ -32,6 +32,7 @@ const apiEndpoints = {
     removeRecipe: (rcpId) => `${baseURL}/recipe/deleteRecipe/${rcpId}`,
 
     createRecipe: () => `${baseURL}/recipe/createRecipe`,
+    updateRecipe: (rcpId) => `${baseURL}/recipe/updateRecipe/${rcpId}`,
   },
 };
 

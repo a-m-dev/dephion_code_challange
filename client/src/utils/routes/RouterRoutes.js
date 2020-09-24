@@ -5,6 +5,7 @@ const RouterRoutes = {
 
   recipe: "/recipe/:recipeId",
   createRecipe: "/create/recipe",
+  editRecipe: "/recipe/:recipeId/edit",
 
   authentication: "/auth",
 

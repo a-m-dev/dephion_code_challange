@@ -17,7 +17,7 @@ import Authentication from "Containers/Authentication";
 import Profile from "Containers/Profile";
 import NotFound from "Containers/NotFound";
 
-import { RouterRoutes, PrivateRoutes } from "utils/routes";
+import { RouterRoutes } from "utils/routes";
 
 import { GlobalAppContext } from "./context";
 import AppManager from "./AppManager";
@@ -62,6 +62,11 @@ const App = (props) => {
           <PublicRoute exact path={RouterRoutes.recipe} component={Recipe} />
 
           <PrivateRoute exact path={RouterRoutes.profile} component={Profile} />
+          <PrivateRoute
+            exact
+            path={RouterRoutes.editRecipe}
+            component={RecipeManagment}
+          />
           <PrivateRoute
             exact
             path={RouterRoutes.createRecipe}

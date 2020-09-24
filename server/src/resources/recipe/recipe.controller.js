@@ -258,7 +258,9 @@ RecipeController.createRecipe = async (req, res, next) => {
         { _id: userId },
         { recipes: [...foundUser.recipes, createdRecipe._id] },
         { new: true }
-      ).exec();
+      )
+        .populate("recipes", recipePropGeneral)
+        .populate("favorites", recipePropGeneral);
 
       // update category data
       let foundedCategory = await CategoryModel.findOne({ _id: categoryId });
@@ -275,6 +277,15 @@ RecipeController.createRecipe = async (req, res, next) => {
           code: 201,
           message: "Recipe created",
           result: {
+            updatedUser: {
+              _id: updatedUser._id,
+              name: updatedUser.name,
+              email: updatedUser.email,
+              avatar: updatedUser.avatar,
+              recipes: updatedUser.recipes,
+              favorites: updatedUser.favorites,
+              followingCategories: updatedUser.followingCategories,
+            },
             createdRecipe,
           },
         })

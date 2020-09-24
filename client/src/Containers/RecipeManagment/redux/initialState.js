@@ -3,6 +3,11 @@ const initialState = {
   loading: false,
   result: [],
 
+  // recipe
+  recipeLoading: false,
+  recipeError: false,
+  recipe: {},
+
   // category
   categoryLoading: false,
   categoryError: false,

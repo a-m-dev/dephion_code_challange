@@ -35,6 +35,7 @@ const GlobalReducer = (state = initialState, action) =>
       }
 
       case RESET_USER_DATA: {
+        // localStorage.removeItem("authToken");
         draft.userData = {};
         draft.authData = {};
         draft.error = false;

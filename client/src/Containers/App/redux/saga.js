@@ -65,7 +65,6 @@ function* postLoginWorker({ payload: { email, password } }) {
 }
 
 function* getUserDataWorker() {
-  console.log(">>>> SAGA");
   const url = apiEndpoints.user.getUserData();
   const method = RequestMethods.GET;
   const actions = {

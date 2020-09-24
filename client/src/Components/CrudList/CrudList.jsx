@@ -11,8 +11,8 @@ import {
   ListItems,
 } from "./styles";
 
-const CrudList = ({ dataset, label, name }) => {
-  const { data, actions } = CrudListManager({ dataset, name });
+const CrudList = ({ label, ...rest }) => {
+  const { data, actions } = CrudListManager({ ...rest });
 
   return (
     <CrudListContext.Provider value={{ data, actions }}>

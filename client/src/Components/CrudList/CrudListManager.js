@@ -2,9 +2,13 @@ import { useState, useEffect, useCallback } from "react";
 import { useFormikContext } from "formik";
 
 const CrudListManager = ({ dataset: _dataset, name }) => {
-  const [dataset, setDataset] = useState(_dataset);
+  const [dataset, setDataset] = useState([]);
 
   const { setFieldValue } = useFormikContext();
+
+  useEffect(() => {
+    setDataset(_dataset);
+  }, [_dataset]);
 
   useEffect(() => {
     setFieldValue(name, dataset);
