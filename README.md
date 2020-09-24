@@ -95,7 +95,7 @@ Recipe Update Page
 also there is alot of improvments i can make on this:
 
 1. using typescript
-2. use snapshot, unit and integration test in client side ( this is a must!, but for lack of time i could not implement it)
+2. use snapshot, unit and integration test in client side also for backend side might use unit and integration tests ( this is a must!, but for lack of time i could not implement it)
 
 In any case if you encountered any kind of error, Im fully at your desposal!
 
