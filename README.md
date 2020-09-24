@@ -57,9 +57,16 @@ Steps :
 1. clone the repo first
 2. navigate to the project directory and run `docker-compose ud -d`, this step would take a bit time because it will get the mongoDb image and will create the services(both client and backend) for you
 3. If that was successfull and you did that well, open up a terminal to check they are ok by writing this command `docker ps`, you should see somthing like this:![dokcer-ps](./docs/docker_ps.png)
+
 4. after that you need to open the postman and import the collection and environment provided for you at `server/postman`, importing is so easy for importing the collection you need to click on this button:![import_collection](./docs/import_collection.png)
-   and for importing the environment, you need to click on this button: ![import_env](./docs/import_env.png)
-   a modal will be openend, you need to scroll down and click on import button: ![import_postman](./docs/import_btn.png) and choode the environment file that is been provided at `server/postman`
+
+   and for importing the environment, you need to click on this button:
+   ![import_env](./docs/import_env.png)
+
+   a modal will be openend, you need to scroll down and click on import button:
+   ![import_postman](./docs/import_btn.png)
+   and choode the environment file that is been provided at `server/postman`
+
 5. **THIS IS VERY IMPORTANT**: in this step you need to create some category, because of time, i was unable to develop the adding category form from client side and you need to call an API in order to create a category, for creating the category, you need to do this steps, first open up the `http://localhost:4000/auth?type=register` and create your user, then in post mand try to use `v1.0/user/login` to login with your credentials! (this simple). after doing that you can create category using this api: `v1.0/category/createCategory ![category](./docs/create_category.png), just create one or two category please!
 6. You Did It, now you can open the `http://localhost:4000/` and check the different stuff in client side:
 
