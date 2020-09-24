@@ -506,7 +506,10 @@ RecipeController.favoriteRecipe = async (req, res, next) => {
         { _id: userId },
         { favorites: newFavorites },
         { new: true }
-      );
+      )
+        .populate("recipes", recipePropGeneral)
+        .populate("favorites", recipePropGeneral)
+        .exec();
 
       let updatedRecipe = await RecipeModel.findOneAndUpdate(
         { _id: recipeId },

@@ -1,7 +1,7 @@
 import React from "react";
 import RecipeDetailsManager from "./RecipeDetailsManager";
 import { withRouter } from "react-router-dom";
-import { CrudList } from "Components";
+import { CrudListView } from "Components";
 import { Button } from "Components";
 
 import {
@@ -39,14 +39,14 @@ const RecipeDetails = (props) => {
       <RecipeDetailRow isVertical>
         <h3>What you need:</h3>
         <Ingredients>
-          <CrudList dataset={recipe?.ingredients} />
+          <CrudListView dataset={recipe?.ingredients} />
         </Ingredients>
       </RecipeDetailRow>
 
       <RecipeDetailRow isVertical>
         <h3>How To Prepare:</h3>
         <PreparationSteps>
-          <CrudList dataset={recipe?.preparationSteps} />
+          <CrudListView dataset={recipe?.preparationSteps} />
         </PreparationSteps>
       </RecipeDetailRow>
     </RecipeDetail>

@@ -18,3 +18,4 @@ export { default as CategoryHero } from "./CategoryHero";
 export { default as CategoryList } from "./CategoryList";
 
 export { default as CrudList } from "./CrudList";
+export { default as CrudListView } from "./CrudListView";

@@ -1,21 +1,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { useFormikContext } from "formik";
 
-const CrudListManager = ({ dataset: _dataset, name, isEditMode }) => {
+const CrudListManager = ({ dataset: _dataset, name }) => {
   const [dataset, setDataset] = useState(_dataset);
 
-  let setFieldValue = null;
-
-  const options = useFormikContext();
-  if (isEditMode) {
-    setFieldValue = options.setFieldValue;
-  }
+  const { setFieldValue } = useFormikContext();
 
   useEffect(() => {
-    if (isEditMode) {
-      setFieldValue(name, dataset);
-    }
-  }, [isEditMode, dataset]);
+    setFieldValue(name, dataset);
+  }, [dataset]);
 
   const handleAddToDataset = useCallback(
     (val) => {

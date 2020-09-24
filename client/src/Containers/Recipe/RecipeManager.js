@@ -79,11 +79,13 @@ const RecipeManager = ({ match }) => {
   }, []);
 
   const isUserLikedRecipe = useMemo(() => {
-    return userData?.favorites?.includes(recipe._id);
+    const arr = userData?.favorites?.map((el) => el._id) || [];
+    return arr.includes(recipe._id);
   }, [recipe, userData]);
 
   const isUserOwnsRecipe = useMemo(() => {
-    return userData?.recipes?.includes(recipe._id);
+    const arr = userData?.recipes?.map((el) => el._id) || [];
+    return arr.includes(recipe._id);
   }, [recipe, userData]);
 
   const recipeActions = useMemo(() => {
