@@ -90,6 +90,13 @@ Recipe Page
 Recipe Update Page
 ![edit-recipe](./docs/edit.png)
 
+## What I might do in next step:
+
+also there is alot of improvments i can make on this:
+
+1. using typescript
+2. use snapshot, unit and integration test in client side ( this is a must!, but for lack of time i could not implement it)
+
 In any case if you encountered any kind of error, Im fully at your desposal!
 
 Hope you Best!  
