@@ -7,7 +7,6 @@ export const EditableItemWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.25rem 1rem;
 `;
 
 export const TextContainer = styled.div`

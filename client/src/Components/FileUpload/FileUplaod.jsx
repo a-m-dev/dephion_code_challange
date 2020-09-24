@@ -1,7 +1,7 @@
 import React from "react";
 import { Field, useField } from "formik";
 
-import { FileUploaderWrapper, InputError } from "./styles";
+import { FileUploaderWrapper, InputError, InputLabel } from "./styles";
 
 function Input(props) {
   const { field, form } = props;
@@ -17,6 +17,7 @@ function Input(props) {
 
   return (
     <FileUploaderWrapper>
+      <InputLabel>Uplaod Cover: </InputLabel>
       <input type="file" id="file" onChange={(o) => handleChange(o)} />
       <label htmlFor="file">choose a file</label>
       {meta.touched && meta.error ? (

@@ -42,7 +42,7 @@ const RecipeCard = ({
       {
         id: 1,
         icon: "icon-tags",
-        label: (category && category.name) || "some cat",
+        label: category?.name || "some cat",
       },
       { id: 2, icon: "icon-heart", label: favorites },
       { id: 3, icon: "icon-share", label: shares },
@@ -56,12 +56,12 @@ const RecipeCard = ({
       {
         id: 3,
         icon: " icon-map-signs",
-        label: `${ingredients.length} items needed`,
+        label: `${ingredients?.length} items needed`,
       },
       {
         id: 4,
         icon: "icon-newspaper",
-        label: `${preparationSteps.length} steps`,
+        label: `${preparationSteps?.length} steps`,
       },
     ];
   }, [numberOfServing, cookingTime, ingredients, preparationSteps]);

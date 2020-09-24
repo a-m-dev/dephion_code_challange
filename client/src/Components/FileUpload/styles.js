@@ -3,8 +3,11 @@ import styled from "styled-components";
 export const FileUploaderWrapper = styled.div`
   position: relative;
   width: 100%;
-  min-height: 100px;
-  margin: 0.2rem 0 1rem 0;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
   [type="file"] {
     height: 0;
     overflow: hidden;
@@ -21,7 +24,7 @@ export const FileUploaderWrapper = styled.div`
     font-family: "Rubik", sans-serif;
     font-size: inherit;
     font-weight: 500;
-    margin-bottom: 1rem;
+    margin-left: 2rem;
     outline: none;
     padding: 1rem 50px;
     position: relative;
@@ -43,6 +46,11 @@ export const FileUploaderWrapper = styled.div`
       }
     }
   }
+`;
+
+export const InputLabel = styled.label`
+  position: relative;
+  color: rgba(var(--gray), 0.7);
 `;
 
 export const InputError = styled.div`

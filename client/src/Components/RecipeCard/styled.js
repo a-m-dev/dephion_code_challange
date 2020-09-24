@@ -140,7 +140,7 @@ export const RecipeBaseItems = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: 0 2rem;
+  padding: 0 1rem;
 
   & button {
     height: 30px;
@@ -167,6 +167,7 @@ export const RecipeData = styled.div`
   }
 
   & span {
+    font-size: 0.75rem;
     color: var(--light-gray);
   }
 `;

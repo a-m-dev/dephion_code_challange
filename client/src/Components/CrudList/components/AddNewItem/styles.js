@@ -8,12 +8,11 @@ export const AddNewItemWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.25rem 1rem;
   position: relative;
 
   & button {
     position: absolute;
-    right: 1.45rem;
+    right: 0.4rem;
     padding: 0.5rem;
   }
 `;
