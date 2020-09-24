@@ -76,6 +76,14 @@ Steps :
    just create one or two category please!
 6. You Did It, now you can open the `http://localhost:4000/` and check the different stuff in client side:
 
+here is the list of Services:
+
+- mongoDb is on PORT 27021 avaliable with user:root, pass: examplePass
+- backend is avaliable on `http://localhost:4010/api/v1.0/`
+- client is ready on `http://localhost:4000/`
+
+---
+
 Here are some screenshots of the Project:
 
 Home Page
