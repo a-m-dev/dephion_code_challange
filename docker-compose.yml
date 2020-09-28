@@ -11,6 +11,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_USER_PASS}
     ports:
       - ${MONGO_EXPOSED_PORT}:27017
+    networks:
+      - cookbook_network
     logging:
       driver: "json-file"
       options:
@@ -30,6 +32,8 @@ services:
       - cookbook_db
     links:
       - cookbook_db
+    networks:
+      - cookbook_network
     logging:
       driver: "json-file"
       options:
@@ -49,8 +53,13 @@ services:
     depends_on:
       - cookbook_db
       - cookbook_server
+    networks:
+      - cookbook_network
     logging:
       driver: "json-file"
       options:
         max-size: "100k"
         max-file: "5"
+
+networks:
+  cookbook_network:

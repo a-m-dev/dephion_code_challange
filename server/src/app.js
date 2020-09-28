@@ -56,6 +56,5 @@ app.use(globalErrorHandler);
       " >>>>> Cannot connect to Database and app fails!",
       JSON.stringify(e, null, 2)
     );
-    await Connect();
   }
 })();
