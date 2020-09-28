@@ -8,6 +8,7 @@ import { json, urlencoded } from "body-parser";
 
 import AppConfig from "./utils/AppConfig";
 import Connect from "./utils/mongoConnect";
+import sleep from "./utils/sleep";
 
 import corsMiddleware from "./middlewares/cors.middleware";
 import noRouteMatch from "./middlewares/noRouteMatch.middleware";
@@ -43,7 +44,8 @@ app.use(noRouteMatch);
 app.use(globalErrorHandler);
 
 // start server
-(async function () {
+
+(async function BootUpServer() {
   try {
     await Connect();
     app.listen(AppConfig.PORT, () => {
@@ -56,5 +58,8 @@ app.use(globalErrorHandler);
       " >>>>> Cannot connect to Database and app fails!",
       JSON.stringify(e, null, 2)
     );
+    await sleep(1000);
+    console.log(">>> retrying to connect to db");
+    BootUpServer();
   }
 })();
