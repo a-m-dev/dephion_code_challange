@@ -17,7 +17,7 @@ const CategoryController = {};
  * Create Category
  */
 CategoryController.createCategory = async (req, res, next) => {
-  const userId = req.user.user_id;
+  const userId = (req.user && req.user.user_id) || null;
   const { name, description } = req.body;
   const cover = (req.file && req.file.path) || undefined;
 

@@ -16,7 +16,6 @@ const CategoryRouter = Router();
 CategoryRouter.route("/createCategory").post(
   ImageUploader.single("cover"),
   dataValidator(createCategorySchema, ValidatorParserTypes.BODY),
-  authenticateToken,
   CategoryController.createCategory
 );
 

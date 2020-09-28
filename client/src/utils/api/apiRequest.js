@@ -39,21 +39,6 @@ function apiRequest({ url, method, data, headers = {} }) {
         error: { message },
       } = error.response.data;
 
-      // if (error.response && error.response.status >= 400) {
-      //   console.log("BEFORE 409 || 405");
-      //   return Promise.reject({
-      //     status: error.response.status,
-      //     message: error.response.data.message,
-      //   });
-      // }
-
-      // if (message === "Network Error") {
-      //   return Promise.reject({
-      //     status: 400,
-      //     message: "BAD_REQUEST",
-      //   });
-      // }
-
       return Promise.reject({ code, message });
     });
 }

@@ -21,6 +21,7 @@ const apiEndpoints = {
     getCategories: () => `${baseURL}/category/getCategoryList`,
     getTopCategories: () => `${baseURL}/category/getTopCategories`,
     followCategory: () => `${baseURL}/category/followCategory`,
+    createCategory: () => `${baseURL}/category/createCategory`,
   },
 
   // recipe

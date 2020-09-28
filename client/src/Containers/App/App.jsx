@@ -1,7 +1,7 @@
 import React from "react";
 import { Normalize } from "styled-normalize";
 import { Switch, withRouter } from "react-router-dom";
-import { Header, Footer } from "Components";
+import { Header, Footer, Initializer } from "Components";
 import { BodyWrapper } from "./styles";
 import GlobalStyle from "./stylesGlobal";
 import { ToastContainer } from "react-toastify";
@@ -35,6 +35,8 @@ const App = (props) => {
     <GlobalAppContext.Provider value={{ data }}>
       <Normalize />
       <GlobalStyle />
+
+      <Initializer />
 
       {!isFullScreenMode && (
         <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
