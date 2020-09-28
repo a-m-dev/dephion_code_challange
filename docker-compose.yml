@@ -25,6 +25,7 @@ services:
     restart: always
     volumes:
       - ./server:/usr/src/app
+      - /usr/src/app/node_modules/
     ports:
       - ${COOKBOOK_BACKEND_PORT}:4010
     depends_on:
@@ -44,6 +45,7 @@ services:
     tty: true
     volumes:
       - ./client:/app
+      - /app/node_modules/
     ports:
       - ${COOKBOOK_CLIENT_PORT}:3000
     depends_on:
