@@ -90,6 +90,8 @@ also there is alot of improvments i can make on this:
 3. use **snapshot**, **unit** and **integration** test in client side also for backend side might use unit and **integration** tests ( please note that this is a must! and i do it in most of my projects, but for lack of time i could not implement it)
 4. definitly this is not a bug free application, of course there would be some bugs, and i should resolve.
 
+**for any one of those steps im fully avaliable and ready to implement, just give a bit time and i would do them!**
+
 In any case if you encountered any kind of error, Im fully at your desposal!
 
 also please accept my apology for the interuptions and bugs in the process again!
