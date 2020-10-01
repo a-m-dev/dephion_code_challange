@@ -65,7 +65,7 @@ also no that I have included the `.env` files in this project, so there is no ne
 2. run `docker-compose up -d`, this step would create 3 containers from scratch at the first time, and i can say that when creating the `cookbook_client` container, it would take some time to install pkgs for react prject, and since it is in silence mode, you would see nothing when it comes to run `npm run install` command, so don't be worry about being stuck or something else, just wait for almost 2 mins, it will install and create the container! at the end of this step you would see something like this:
    ![containers](./docs/containers.png)
 
-3. congrats, you did it! now you can open the `http://localhost:4000/` and see that client side is ready!
+3. congrats, you did it! now you can open the `http://localhost:4000/` and see that client side is ready!, in this state you will see 6 pre defined categories, and there are no recipe, you need to register a user and create recipe from your profile page!
 
 ---
 
