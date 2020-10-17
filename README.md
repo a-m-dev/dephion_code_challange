@@ -1,4 +1,4 @@
-# dephion Code challenge
+# dephion Code challenge 
 
 This is a simple fullstack Project for a cookbook webapp with React.
 This project is containerized with Docker and there is a `docker-compose.yml` file in the root directory to manage the services.
