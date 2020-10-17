@@ -92,9 +92,5 @@ also there is alot of improvments i can make on this:
 
 **for any one of those steps im fully avaliable and ready to implement, just give a bit time and i would do them!**
 
-In any case if you encountered any kind of error, Im fully at your desposal!
-
-also please accept my apology for the interuptions and bugs in the process again!
-
 Hope you Best!  
 Ahmad (@a_m_dev)
